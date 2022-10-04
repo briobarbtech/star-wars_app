@@ -3,5 +3,5 @@ import 'package:star_wars_app/features/index/persentation/riverpod/starwars_stat
 
 abstract class IGetAllCharacters {
   Future<List<Character>> getAllCharacter();
-  Future<StarWarsStatus> getPage(page);
+  Future<StarWarsStatus> getPage(String page);
 }

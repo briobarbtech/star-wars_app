@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:star_wars_app/features/index/data/datasource/remote_datasource_sw.dart';
+import 'package:go_router/go_router.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+
+final counterProvider = StateProvider((ref) => 1);
+
+final characterProvider =
+    StateNotifierProvider<CharacterNotifier, StarWarsStatus>(
+        ((ref) => CharacterNotifier()));
 
 class Homepage extends ConsumerWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -11,6 +17,8 @@ class Homepage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final swCharacterData = ref.watch(characterProvider).characters;
     bool isLoading = ref.watch(characterProvider).isLoading;
+
+    var counter = ref.watch(counterProvider);
 
     return Scaffold(
         appBar: AppBar(title: const Text("StarWars APP")),
@@ -23,34 +31,46 @@ class Homepage extends ConsumerWidget {
                       itemCount: swCharacterData.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                            leading: const Icon(Icons.account_circle),
-                            trailing: const Text(
-                              "Ver más",
-                              style:
-                                  TextStyle(color: Colors.green, fontSize: 15),
-                            ),
+                            leading: swCharacterData[index].gender == "male"
+                                ? const Icon(Icons.female_sharp)
+                                : const Icon(Icons.male_sharp),
+                            trailing: TextButton(
+                                onPressed: () {
+                                  context.go('/character_details',
+                                      extra: swCharacterData[index]);
+                                },
+                                child: const Text(
+                                  "Ver más",
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 15),
+                                )),
                             title: Text(swCharacterData[index].name));
                       }),
                   Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      const SizedBox(width: 20.0),
                       ElevatedButton(
                           onPressed: () async {
-                            final url = ref.watch(characterProvider).previous;
-                            await ref
-                                .read(characterProvider.notifier)
-                                .loadCharacters(url);
-                            ;
+                            if (counter > 1) {
+                              ref.read(counterProvider.notifier).state--;
+                              final url = ref.watch(characterProvider).previous;
+                              await ref
+                                  .read(characterProvider.notifier)
+                                  .loadCharacters(url);
+                            }
                           },
-                          child: const Text("Previous")),
+                          child: Text("Previous ${counter - 1}")),
                       ElevatedButton(
                           onPressed: () async {
+                            ref.read(counterProvider.notifier).state++;
                             final url = ref.watch(characterProvider).next;
                             await ref
                                 .read(characterProvider.notifier)
                                 .loadCharacters(url);
                           },
-                          child: const Text("Next")),
+                          child: Text("Next ${counter + 1}")),
+                      const SizedBox(width: 20.0)
                     ],
                   )
                 ],
