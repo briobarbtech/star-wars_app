@@ -9,8 +9,8 @@ class StarWarsStatus with _$StarWarsStatus {
   const factory StarWarsStatus(
       {@Default([]) List<CharacterModel> characters,
       @Default(false) bool isLoading,
-      @Default([]) List<CharacterModel> previous,
-      @Default([]) List<CharacterModel> next}) = _StarWarsStatus;
+      @Default("") String previous,
+      @Default("") String next}) = _StarWarsStatus;
 
   factory StarWarsStatus.fromJson(Map<String, dynamic> json) =>
       _$StarWarsStatusFromJson(json);
