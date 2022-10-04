@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:star_wars_app/features/index/data/model/character_model.dart';
 import 'package:star_wars_app/features/index/domain/entities/character.dart';
 import 'package:star_wars_app/features/index/persentation/pages/character_detail.dart';
 import 'package:star_wars_app/features/index/persentation/pages/homepage.dart';
+import 'package:star_wars_app/features/index/persentation/pages/not_found.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -20,36 +20,44 @@ class MyApp extends StatelessWidget {
         routerDelegate: _router.routerDelegate,
         title: "Personajes",
       );
-  final GoRouter _router = GoRouter(
-    routes: <GoRoute>[
-      GoRoute(
-          path: '/',
-          builder: (BuildContext context, GoRouterState state) =>
-              const Homepage()),
-      GoRoute(
-        path: '/character_details',
-        builder: (context, state) {
-          // use state.params to get router parameter values
-          //final family = Families.family(state.params['fid']!);
-          Object? character = state.extra;
-          if (character != null && character is Character) {
-            return CharacterDetails(character: character);
-          } else {
-            return CharacterDetails(
-              character: CharacterModel(
-                name: "",
-                birthYear: "",
-                eyeColor: "",
-                gender: "",
-                hairColor: "",
-                height: "",
-                homeworld: "",
-                mass: "",
-              ),
-            );
-          }
-        },
-      ),
-    ],
-  );
+  final GoRouter _router = GoRouter(routes: <GoRoute>[
+    GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) =>
+            const Homepage(),
+        routes: <GoRoute>[
+          GoRoute(
+            path: 'homepage',
+            name: 'homepage',
+            builder: (BuildContext context, GoRouterState state) =>
+                const Homepage(),
+          ),
+          GoRoute(
+            path: 'details',
+            name: 'details',
+            builder: (BuildContext context, GoRouterState state) {
+              Object? character = state.extra;
+              if (character != null && character is Character) {
+                return CharacterDetails(character: character);
+              } else {
+                return const NotFound();
+              }
+            },
+          ),
+        ])
+  ]);
 }
+
+// TODO: - Agregar un drawer para cortar la conexión
+// TODO: - Agregar función para reportar : https://jsonplaceholder.typicode.com/posts
+// TODO: - El report no se puede hacer si la conexión no está habilitada
+// TODO: - Agregar el snackbar que notifica que se reportó el avistamiento
+/* TODO: - Hacer la card de los personajes
+  - Nacimiento (birth_year)
+  - Color de ojos (eye_color)
+  - Genero (gender)
+  - Color de pelo (hair_color)
+  - Altura (height)
+  - Mundo natal (homeworld)
+  - Peso (mass)
+  - Nombre (name)*/

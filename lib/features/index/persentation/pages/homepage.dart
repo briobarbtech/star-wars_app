@@ -36,7 +36,7 @@ class Homepage extends ConsumerWidget {
                                 : const Icon(Icons.male_sharp),
                             trailing: TextButton(
                                 onPressed: () {
-                                  context.go('/character_details',
+                                  context.go('/details',
                                       extra: swCharacterData[index]);
                                 },
                                 child: const Text(
