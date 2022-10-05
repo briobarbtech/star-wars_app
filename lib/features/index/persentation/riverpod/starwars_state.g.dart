@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'starwars_status.dart';
+part of 'starwars_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StarWarsStatus _$$_StarWarsStatusFromJson(Map<String, dynamic> json) =>
-    _$_StarWarsStatus(
+_$_StarWarsState _$$_StarWarsStateFromJson(Map<String, dynamic> json) =>
+    _$_StarWarsState(
       characters: (json['characters'] as List<dynamic>?)
               ?.map((e) => CharacterModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -17,7 +17,7 @@ _$_StarWarsStatus _$$_StarWarsStatusFromJson(Map<String, dynamic> json) =>
       next: json['next'] as String? ?? "",
     );
 
-Map<String, dynamic> _$$_StarWarsStatusToJson(_$_StarWarsStatus instance) =>
+Map<String, dynamic> _$$_StarWarsStateToJson(_$_StarWarsState instance) =>
     <String, dynamic>{
       'characters': instance.characters,
       'isLoading': instance.isLoading,

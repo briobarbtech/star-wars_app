@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'starwars_status.dart';
+part of 'starwars_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,20 +14,20 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-StarWarsStatus _$StarWarsStatusFromJson(Map<String, dynamic> json) {
-  return _StarWarsStatus.fromJson(json);
+StarWarsState _$StarWarsStateFromJson(Map<String, dynamic> json) {
+  return _StarWarsState.fromJson(json);
 }
 
 /// @nodoc
-class _$StarWarsStatusTearOff {
-  const _$StarWarsStatusTearOff();
+class _$StarWarsStateTearOff {
+  const _$StarWarsStateTearOff();
 
-  _StarWarsStatus call(
+  _StarWarsState call(
       {List<CharacterModel> characters = const [],
       bool isLoading = false,
       String previous = "",
       String next = ""}) {
-    return _StarWarsStatus(
+    return _StarWarsState(
       characters: characters,
       isLoading: isLoading,
       previous: previous,
@@ -35,32 +35,36 @@ class _$StarWarsStatusTearOff {
     );
   }
 
-  StarWarsStatus fromJson(Map<String, Object?> json) {
-    return StarWarsStatus.fromJson(json);
+  StarWarsState fromJson(Map<String, Object?> json) {
+    return StarWarsState.fromJson(json);
   }
 }
 
 /// @nodoc
-const $StarWarsStatus = _$StarWarsStatusTearOff();
+const $StarWarsState = _$StarWarsStateTearOff();
 
 /// @nodoc
-mixin _$StarWarsStatus {
-  List<CharacterModel> get characters => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  String get previous => throw _privateConstructorUsedError;
+mixin _$StarWarsState {
+// Aquí guardo la lista de personajes actual
+  List<CharacterModel> get characters =>
+      throw _privateConstructorUsedError; // Este parametro me sirve para manejar las pantallas de carga
+  bool get isLoading =>
+      throw _privateConstructorUsedError; // Aqupi guardo la dirección a la lista anterior
+  String get previous =>
+      throw _privateConstructorUsedError; // Aquí guardo la dirección a la lista siguiente
   String get next => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StarWarsStatusCopyWith<StarWarsStatus> get copyWith =>
+  $StarWarsStateCopyWith<StarWarsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StarWarsStatusCopyWith<$Res> {
-  factory $StarWarsStatusCopyWith(
-          StarWarsStatus value, $Res Function(StarWarsStatus) then) =
-      _$StarWarsStatusCopyWithImpl<$Res>;
+abstract class $StarWarsStateCopyWith<$Res> {
+  factory $StarWarsStateCopyWith(
+          StarWarsState value, $Res Function(StarWarsState) then) =
+      _$StarWarsStateCopyWithImpl<$Res>;
   $Res call(
       {List<CharacterModel> characters,
       bool isLoading,
@@ -69,13 +73,13 @@ abstract class $StarWarsStatusCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StarWarsStatusCopyWithImpl<$Res>
-    implements $StarWarsStatusCopyWith<$Res> {
-  _$StarWarsStatusCopyWithImpl(this._value, this._then);
+class _$StarWarsStateCopyWithImpl<$Res>
+    implements $StarWarsStateCopyWith<$Res> {
+  _$StarWarsStateCopyWithImpl(this._value, this._then);
 
-  final StarWarsStatus _value;
+  final StarWarsState _value;
   // ignore: unused_field
-  final $Res Function(StarWarsStatus) _then;
+  final $Res Function(StarWarsState) _then;
 
   @override
   $Res call({
@@ -106,11 +110,11 @@ class _$StarWarsStatusCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$StarWarsStatusCopyWith<$Res>
-    implements $StarWarsStatusCopyWith<$Res> {
-  factory _$StarWarsStatusCopyWith(
-          _StarWarsStatus value, $Res Function(_StarWarsStatus) then) =
-      __$StarWarsStatusCopyWithImpl<$Res>;
+abstract class _$StarWarsStateCopyWith<$Res>
+    implements $StarWarsStateCopyWith<$Res> {
+  factory _$StarWarsStateCopyWith(
+          _StarWarsState value, $Res Function(_StarWarsState) then) =
+      __$StarWarsStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {List<CharacterModel> characters,
@@ -120,15 +124,15 @@ abstract class _$StarWarsStatusCopyWith<$Res>
 }
 
 /// @nodoc
-class __$StarWarsStatusCopyWithImpl<$Res>
-    extends _$StarWarsStatusCopyWithImpl<$Res>
-    implements _$StarWarsStatusCopyWith<$Res> {
-  __$StarWarsStatusCopyWithImpl(
-      _StarWarsStatus _value, $Res Function(_StarWarsStatus) _then)
-      : super(_value, (v) => _then(v as _StarWarsStatus));
+class __$StarWarsStateCopyWithImpl<$Res>
+    extends _$StarWarsStateCopyWithImpl<$Res>
+    implements _$StarWarsStateCopyWith<$Res> {
+  __$StarWarsStateCopyWithImpl(
+      _StarWarsState _value, $Res Function(_StarWarsState) _then)
+      : super(_value, (v) => _then(v as _StarWarsState));
 
   @override
-  _StarWarsStatus get _value => super._value as _StarWarsStatus;
+  _StarWarsState get _value => super._value as _StarWarsState;
 
   @override
   $Res call({
@@ -137,7 +141,7 @@ class __$StarWarsStatusCopyWithImpl<$Res>
     Object? previous = freezed,
     Object? next = freezed,
   }) {
-    return _then(_StarWarsStatus(
+    return _then(_StarWarsState(
       characters: characters == freezed
           ? _value.characters
           : characters // ignore: cast_nullable_to_non_nullable
@@ -160,39 +164,39 @@ class __$StarWarsStatusCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_StarWarsStatus implements _StarWarsStatus {
-  const _$_StarWarsStatus(
+class _$_StarWarsState implements _StarWarsState {
+  const _$_StarWarsState(
       {this.characters = const [],
       this.isLoading = false,
       this.previous = "",
       this.next = ""});
 
-  factory _$_StarWarsStatus.fromJson(Map<String, dynamic> json) =>
-      _$$_StarWarsStatusFromJson(json);
+  factory _$_StarWarsState.fromJson(Map<String, dynamic> json) =>
+      _$$_StarWarsStateFromJson(json);
 
   @JsonKey()
-  @override
+  @override // Aquí guardo la lista de personajes actual
   final List<CharacterModel> characters;
   @JsonKey()
-  @override
+  @override // Este parametro me sirve para manejar las pantallas de carga
   final bool isLoading;
   @JsonKey()
-  @override
+  @override // Aqupi guardo la dirección a la lista anterior
   final String previous;
   @JsonKey()
-  @override
+  @override // Aquí guardo la dirección a la lista siguiente
   final String next;
 
   @override
   String toString() {
-    return 'StarWarsStatus(characters: $characters, isLoading: $isLoading, previous: $previous, next: $next)';
+    return 'StarWarsState(characters: $characters, isLoading: $isLoading, previous: $previous, next: $next)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _StarWarsStatus &&
+            other is _StarWarsState &&
             const DeepCollectionEquality()
                 .equals(other.characters, characters) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
@@ -210,35 +214,35 @@ class _$_StarWarsStatus implements _StarWarsStatus {
 
   @JsonKey(ignore: true)
   @override
-  _$StarWarsStatusCopyWith<_StarWarsStatus> get copyWith =>
-      __$StarWarsStatusCopyWithImpl<_StarWarsStatus>(this, _$identity);
+  _$StarWarsStateCopyWith<_StarWarsState> get copyWith =>
+      __$StarWarsStateCopyWithImpl<_StarWarsState>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StarWarsStatusToJson(this);
+    return _$$_StarWarsStateToJson(this);
   }
 }
 
-abstract class _StarWarsStatus implements StarWarsStatus {
-  const factory _StarWarsStatus(
+abstract class _StarWarsState implements StarWarsState {
+  const factory _StarWarsState(
       {List<CharacterModel> characters,
       bool isLoading,
       String previous,
-      String next}) = _$_StarWarsStatus;
+      String next}) = _$_StarWarsState;
 
-  factory _StarWarsStatus.fromJson(Map<String, dynamic> json) =
-      _$_StarWarsStatus.fromJson;
+  factory _StarWarsState.fromJson(Map<String, dynamic> json) =
+      _$_StarWarsState.fromJson;
 
-  @override
+  @override // Aquí guardo la lista de personajes actual
   List<CharacterModel> get characters;
-  @override
+  @override // Este parametro me sirve para manejar las pantallas de carga
   bool get isLoading;
-  @override
+  @override // Aqupi guardo la dirección a la lista anterior
   String get previous;
-  @override
+  @override // Aquí guardo la dirección a la lista siguiente
   String get next;
   @override
   @JsonKey(ignore: true)
-  _$StarWarsStatusCopyWith<_StarWarsStatus> get copyWith =>
+  _$StarWarsStateCopyWith<_StarWarsState> get copyWith =>
       throw _privateConstructorUsedError;
 }

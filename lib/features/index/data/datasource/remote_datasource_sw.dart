@@ -6,7 +6,7 @@ import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_
 import 'package:star_wars_app/features/index/data/model/character_model.dart';
 import 'package:star_wars_app/features/index/data/model/report_model.dart';
 import 'package:star_wars_app/features/index/domain/entities/report.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 class RemoteDatasourceSW extends IRemoteDatasourceSW {
   @override
@@ -22,13 +22,13 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
   }
 
   @override
-  Future<StarWarsStatus> getPage(String page) async {
+  Future<StarWarsState> getPage(String page) async {
     Response response = await Dio().get(page);
     if (response.statusCode == 200) {
       final List result = response.data['results'];
       var previous = response.data['previous'].toString();
       var next = response.data['next'];
-      return StarWarsStatus(
+      return StarWarsState(
           characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
           isLoading: false,
           previous: previous,

@@ -10,7 +10,7 @@ import 'package:star_wars_app/features/index/domain/usecases/get_all_characters.
 import 'package:star_wars_app/features/index/domain/usecases/iget_all_characters.dart';
 import 'package:star_wars_app/features/index/domain/usecases/ireport_sighting.dart';
 import 'package:star_wars_app/features/index/domain/usecases/report_sighting.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 //Data
 final swDatasource = Provider<IRemoteDatasourceSW>(
@@ -28,9 +28,9 @@ final reportResponse =
   return await ref.watch(reportSighting).reportSighting(report);
 });
 
-class CharacterNotifier extends StateNotifier<StarWarsStatus> {
+class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization
-  CharacterNotifier() : super(const StarWarsStatus()) {
+  CharacterNotifier() : super(const StarWarsState()) {
     loadCharacters(Endpoints.swapiEndpoint);
   }
 

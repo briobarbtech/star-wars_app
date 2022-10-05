@@ -1,16 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 final counterProvider = StateProvider((ref) => 1);
 final swithCurrentValue = StateProvider((ref) => false);
 
 final characterProvider =
-    StateNotifierProvider<CharacterNotifier, StarWarsStatus>(
+    StateNotifierProvider<CharacterNotifier, StarWarsState>(
         ((ref) => CharacterNotifier()));
 
 class Homepage extends ConsumerWidget {

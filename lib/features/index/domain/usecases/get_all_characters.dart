@@ -1,7 +1,7 @@
 import 'package:star_wars_app/features/index/domain/entities/character.dart';
 import 'package:star_wars_app/features/index/domain/repository/isw_repository.dart';
 import 'package:star_wars_app/features/index/domain/usecases/iget_all_characters.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 class GetAllCharacter extends IGetAllCharacters {
   final IStarWarsRepository characterRepository;
@@ -12,7 +12,7 @@ class GetAllCharacter extends IGetAllCharacters {
   }
 
   @override
-  Future<StarWarsStatus> getPage(String page) {
+  Future<StarWarsState> getPage(String page) {
     return characterRepository.getPage(page);
   }
 }

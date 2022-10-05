@@ -5,6 +5,11 @@ import 'package:star_wars_app/features/index/domain/entities/character.dart';
 import 'package:star_wars_app/features/index/persentation/pages/homepage.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
 
+final reportResponse =
+    FutureProvider.family<dynamic, ReportModel>((ref, report) async {
+  return await ref.watch(reportSighting).reportSighting(report);
+});
+
 class CharacterDetails extends ConsumerWidget {
   CharacterDetails({Key? key, required this.character}) : super(key: key);
 

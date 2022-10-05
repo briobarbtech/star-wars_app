@@ -5,7 +5,7 @@ import 'package:star_wars_app/features/index/data/model/report_model.dart';
 import 'package:star_wars_app/features/index/domain/entities/character.dart';
 import 'package:star_wars_app/features/index/domain/entities/report.dart';
 import 'package:star_wars_app/features/index/domain/repository/isw_repository.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_status.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 class StarWarsRepository extends IStarWarsRepository {
   IRemoteDatasourceSW remoteDatasourceSW;
@@ -16,7 +16,7 @@ class StarWarsRepository extends IStarWarsRepository {
   }
 
   @override
-  Future<StarWarsStatus> getPage(String page) {
+  Future<StarWarsState> getPage(String page) {
     return remoteDatasourceSW.getPage(page);
   }
 
