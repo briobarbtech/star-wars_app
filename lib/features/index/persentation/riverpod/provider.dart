@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_sw.dart';
@@ -10,6 +9,8 @@ import 'package:star_wars_app/features/index/domain/usecases/get_all_characters.
 import 'package:star_wars_app/features/index/domain/usecases/iget_all_characters.dart';
 import 'package:star_wars_app/features/index/domain/usecases/ireport_sighting.dart';
 import 'package:star_wars_app/features/index/domain/usecases/report_sighting.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/connection_state.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/report_state.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 //Data
@@ -23,9 +24,10 @@ final starWarsRepository = Provider<IStarWarsRepository>(
 final reportSighting = Provider<IReportSighting>(
     (ref) => ReportSighting(ref.watch(starWarsRepository)));
 //Presentation
-final reportResponse =
+final reportRespuesta =
     FutureProvider.family<dynamic, ReportModel>((ref, report) async {
-  return await ref.watch(reportSighting).reportSighting(report);
+  final response = await ref.watch(reportSighting).reportSighting(report);
+  return response;
 });
 
 class CharacterNotifier extends StateNotifier<StarWarsState> {
@@ -44,5 +46,25 @@ class CharacterNotifier extends StateNotifier<StarWarsState> {
     final swCharacters = await getSWCharacters.getPage(url);
 
     state = swCharacters;
+  }
+}
+
+class ConnectionStateNotifier extends StateNotifier<ConnectionStateSW> {
+  ConnectionStateNotifier() : super(const ConnectionStateSW());
+  switchState(bool valueIn) {
+    state = state.copyWith(switchState: valueIn);
+  }
+}
+
+class ReportStateNotifier extends StateNotifier<ReportState> {
+  ReportStateNotifier() : super(const ReportState());
+  reportSighting(report) async {
+    final IRemoteDatasourceSW swDatasource = RemoteDatasourceSW();
+    final IStarWarsRepository swCharacterRepository =
+        StarWarsRepository(swDatasource);
+    final IReportSighting reportSighting =
+        ReportSighting(swCharacterRepository);
+    final reportResponse = await reportSighting.reportSighting(report);
+    state = state.copyWith(statusCode: reportResponse);
   }
 }

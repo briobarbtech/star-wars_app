@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/connection_state.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 final counterProvider = StateProvider((ref) => 1);
-final swithCurrentValue = StateProvider((ref) => false);
+final swithCurrentValue =
+    StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>(
+        (ref) => ConnectionStateNotifier());
 
 final characterProvider =
     StateNotifierProvider<CharacterNotifier, StarWarsState>(
@@ -24,7 +27,7 @@ class Homepage extends ConsumerWidget {
         "https://www.enjpg.com/img/2020/space-background-19.jpg");
     return Scaffold(
         drawer: DrawerStarWars(
-          currentValue: swithCurrentValue,
+          switchProvider: swithCurrentValue,
         ),
         appBar: AppBar(
             centerTitle: true,
@@ -98,10 +101,11 @@ class Homepage extends ConsumerWidget {
 }
 
 class DrawerStarWars extends ConsumerWidget {
-  DrawerStarWars({Key? key, required this.currentValue}) : super(key: key);
+  DrawerStarWars({Key? key, required this.switchProvider}) : super(key: key);
   var bg2 = const NetworkImage(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png");
-  final StateProvider<bool> currentValue;
+  final StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>
+      switchProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -118,7 +122,7 @@ class DrawerStarWars extends ConsumerWidget {
             child: null,
           ),
           Container(
-            decoration: ref.watch(swithCurrentValue)
+            decoration: ref.watch(switchProvider).switchState
                 ? const BoxDecoration(color: Colors.green)
                 : const BoxDecoration(color: Colors.red),
             child: Row(
@@ -126,11 +130,9 @@ class DrawerStarWars extends ConsumerWidget {
               children: [
                 const Text("Conexión"),
                 Switch(
-                    value: ref.watch(swithCurrentValue),
+                    value: ref.watch(switchProvider).switchState,
                     onChanged: (bool valueIn) {
-                      ref.watch(swithCurrentValue)
-                          ? ref.read(swithCurrentValue.notifier).state = false
-                          : ref.read(swithCurrentValue.notifier).state = true;
+                      ref.read(swithCurrentValue.notifier).switchState(valueIn);
                     }),
               ],
             ),

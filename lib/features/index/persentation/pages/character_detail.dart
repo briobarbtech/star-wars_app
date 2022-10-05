@@ -4,16 +4,15 @@ import 'package:star_wars_app/features/index/data/model/report_model.dart';
 import 'package:star_wars_app/features/index/domain/entities/character.dart';
 import 'package:star_wars_app/features/index/persentation/pages/homepage.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
+import 'package:star_wars_app/features/index/persentation/riverpod/report_state.dart';
 
-final reportResponse =
-    FutureProvider.family<dynamic, ReportModel>((ref, report) async {
-  return await ref.watch(reportSighting).reportSighting(report);
-});
+final reportProvider = StateNotifierProvider<ReportStateNotifier, ReportState>(
+    ((ref) => ReportStateNotifier()));
 
 class CharacterDetails extends ConsumerWidget {
   CharacterDetails({Key? key, required this.character}) : super(key: key);
 
-  final Character character;
+  Character character;
   var bg = const NetworkImage(
       "https://www.enjpg.com/img/2020/space-background-19.jpg");
   @override
@@ -35,28 +34,30 @@ class CharacterDetails extends ConsumerWidget {
                 Text(character.name),
                 ElevatedButton(
                     onPressed: () {
-                      final status = ref.read(reportResponse(ReportModel(
-                          id: 1,
-                          body: "sighted character was ${character.name}",
-                          title: "sighted character",
-                          userId: 1)));
-                      ref.watch(swithCurrentValue) == false
-                          ? ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                              content:
-                                  Text('Por favor activa la conexión antes'),
-                            ))
-                          : status == "201"
-                              ? ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                      if (ref.watch(swithCurrentValue).switchState) {
+                        ref.read(reportProvider.notifier).reportSighting(
+                            ReportModel(
+                                id: 1,
+                                body: "sighted character was ${character.name}",
+                                title: "sighted character",
+                                userId: 1));
+
+                        if (ref.watch(reportProvider).statusCode == "201") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
                                   content: Text(
-                                      'Ha ocurrido un error! Code: $status'),
-                                ))
-                              : ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                  content:
-                                      Text('Se ha reportado el avistamiento!'),
-                                ));
+                                      'Se ha reportado el avistamiento!')));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  'Ha ocurrido algo! Error: ${ref.watch(reportProvider).statusCode}')));
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Por favor activa la conexión antes'),
+                        ));
+                      }
                     },
                     child: const Text("Reportar avistamiento!"))
               ],

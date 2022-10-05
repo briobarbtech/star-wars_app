@@ -1,11 +1,7 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
-import 'package:star_wars_app/core/failure/failure.dart';
 import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_sw.dart';
 import 'package:star_wars_app/features/index/data/model/character_model.dart';
-import 'package:star_wars_app/features/index/data/model/report_model.dart';
-import 'package:star_wars_app/features/index/domain/entities/report.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 class RemoteDatasourceSW extends IRemoteDatasourceSW {
@@ -39,13 +35,12 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
   }
 
   @override
-  Future<Either<Failure, String>> reportSighting(ReportModel report) async {
+  Future<String> reportSighting(report) async {
     Response response =
         await Dio().post(Endpoints.reportEndpoint, data: report.toJson());
-    ;
 
-    final statusCode = response.statusCode.toString();
-    //print(statusCode);
-    return Right(statusCode);
+    final String statusCode = response.statusCode.toString();
+    print(statusCode);
+    return statusCode;
   }
 }
