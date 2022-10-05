@@ -13,7 +13,7 @@ import 'package:star_wars_app/features/index/persentation/riverpod/connection_st
 import 'package:star_wars_app/features/index/persentation/riverpod/report_state.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
-//Data
+/* //Data
 final swDatasource = Provider<IRemoteDatasourceSW>(
   (ref) => RemoteDatasourceSW(),
 );
@@ -28,7 +28,7 @@ final reportRespuesta =
     FutureProvider.family<dynamic, ReportModel>((ref, report) async {
   final response = await ref.watch(reportSighting).reportSighting(report);
   return response;
-});
+}); */
 
 class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization

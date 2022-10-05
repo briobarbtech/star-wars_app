@@ -1,13 +1,11 @@
 abstract class Report {
-  Report({
-    required this.userId,
-    required this.id,
-    required this.title,
-    required this.body,
-  });
+  Report({required this.name, required this.price, required this.quantity});
 
-  int userId;
-  int id;
-  String title;
-  String body;
+  late int id;
+
+  String name;
+
+  String price;
+
+  String quantity;
 }

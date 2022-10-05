@@ -35,28 +35,28 @@ class CharacterDetails extends ConsumerWidget {
                 ElevatedButton(
                     onPressed: () {
                       if (ref.watch(swithCurrentValue).switchState) {
-                        ref.read(reportProvider.notifier).reportSighting(
-                            ReportModel(
-                                id: 1,
-                                body: "sighted character was ${character.name}",
-                                title: "sighted character",
-                                userId: 1));
-
-                        if (ref.watch(reportProvider).statusCode == "201") {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Se ha reportado el avistamiento!')));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  'Ha ocurrido algo! Error: ${ref.watch(reportProvider).statusCode}')));
-                        }
+                        ref
+                            .read(reportProvider.notifier)
+                            .reportSighting(ReportModel(
+                              id: 1,
+                              name: "nametext",
+                              price: "123",
+                              quantity: "13",
+                            ));
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Por favor activa la conexión antes'),
                         ));
+                      }
+                      if (ref.watch(reportProvider).statusCode == "201") {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Se ha reportado el avistamiento! ${ref.watch(reportProvider).statusCode}')));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Ha ocurrido algo! Error: ${ref.watch(reportProvider).statusCode}')));
                       }
                     },
                     child: const Text("Reportar avistamiento!"))
