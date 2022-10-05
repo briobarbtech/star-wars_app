@@ -15,11 +15,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
-        routeInformationProvider: _router.routeInformationProvider,
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
-        title: "Personajes",
-      );
+      routeInformationProvider: _router.routeInformationProvider,
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
+      title: "Personajes",
+      theme: ThemeData(
+        colorScheme: const ColorScheme.dark(),
+      ));
   final GoRouter _router = GoRouter(routes: <GoRoute>[
     GoRoute(
         path: '/',
@@ -48,10 +50,9 @@ class MyApp extends StatelessWidget {
   ]);
 }
 
-// TODO: - Agregar un drawer para cortar la conexión
-// TODO: - Agregar función para reportar : https://jsonplaceholder.typicode.com/posts
-// TODO: - El report no se puede hacer si la conexión no está habilitada
-// TODO: - Agregar el snackbar que notifica que se reportó el avistamiento
+
+
+
 /* TODO: - Hacer la card de los personajes
   - Nacimiento (birth_year)
   - Color de ojos (eye_color)

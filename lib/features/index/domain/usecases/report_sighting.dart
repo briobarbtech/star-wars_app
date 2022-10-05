@@ -1,12 +1,14 @@
-import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_sw.dart';
-import 'package:star_wars_app/features/index/domain/entities/report.dart';
+import 'package:dartz/dartz.dart';
+import 'package:star_wars_app/core/failure/failure.dart';
+import 'package:star_wars_app/features/index/data/model/report_model.dart';
+import 'package:star_wars_app/features/index/domain/repository/isw_repository.dart';
 import 'package:star_wars_app/features/index/domain/usecases/ireport_sighting.dart';
 
 class ReportSighting extends IReportSighting {
-  IRemoteDatasourceSW remoteDatasourceSW;
-  ReportSighting(this.remoteDatasourceSW);
+  IStarWarsRepository starWarsRepository;
+  ReportSighting(this.starWarsRepository);
   @override
-  Future<dynamic> reportSighting(Report report) {
-    return remoteDatasourceSW.reportSighting(report);
+  Future<Either<Failure, String>> reportSighting(ReportModel report) {
+    return starWarsRepository.reportSighting(report);
   }
 }
