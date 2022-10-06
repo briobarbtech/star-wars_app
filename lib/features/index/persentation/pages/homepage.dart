@@ -31,7 +31,8 @@ class Homepage extends ConsumerWidget {
         appBar: AppBar(
             centerTitle: true,
             title: const Text("StarWars APP",
-                style: TextStyle(fontFamily: 'starwars'))),
+                style:
+                    TextStyle(fontFamily: 'starwars', color: Colors.yellow))),
         body: !isLoading
             ? Container(
                 decoration: BoxDecoration(

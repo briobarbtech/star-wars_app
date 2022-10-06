@@ -1,27 +1,27 @@
-import 'package:star_wars_app/features/index/domain/entities/report.dart';
+class ReportModel {
+  ReportModel({
+    required this.userId,
+    required this.id,
+    required this.title,
+    required this.body,
+  });
 
-class ReportModel implements Report {
-  ReportModel(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.quantity});
-
-  @override
-  int id;
-  @override
-  String name;
-  @override
-  String price;
-  @override
-  String quantity;
+  String userId;
+  String id;
+  String title;
+  String body;
 
   factory ReportModel.fromJson(Map<String, dynamic> json) => ReportModel(
-      id: json["id"],
-      name: json["name"],
-      price: json["price"].toString(),
-      quantity: json["quantity"].toString());
+        userId: json["userId"],
+        id: json["id"],
+        title: json["title"],
+        body: json["body"],
+      );
 
-  Map<String, dynamic> toJson() =>
-      {"name": name, "price": price, "quantity": quantity};
+  Map<String, dynamic> toJson() => {
+        "userId": userId,
+        "id": id,
+        "title": title,
+        "body": body,
+      };
 }

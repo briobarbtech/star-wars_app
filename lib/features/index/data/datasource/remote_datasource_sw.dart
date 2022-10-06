@@ -6,12 +6,18 @@ import 'package:star_wars_app/features/index/persentation/riverpod/starwars_stat
 
 class RemoteDatasourceSW extends IRemoteDatasourceSW {
   @override
-  Future<List<CharacterModel>> getAllCharacters() async {
+  Future<StarWarsState> getFirstPage() async {
     Response response = await Dio().get(Endpoints.swapiEndpoint);
     if (response.statusCode == 200) {
       final List result = response.data['results'];
-      //print(result);
-      return result.map((e) => CharacterModel.fromJson(e)).toList();
+      String previous = response.data['previous'].toString();
+      String next = response.data['next'];
+      //print(next);
+      return StarWarsState(
+          characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
+          isLoading: false,
+          previous: previous,
+          next: next);
     } else {
       throw Exception(response);
     }
@@ -20,10 +26,12 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
   @override
   Future<StarWarsState> getPage(String page) async {
     Response response = await Dio().get(page);
+    //print(response.data['results']);
     if (response.statusCode == 200) {
       final List result = response.data['results'];
-      var previous = response.data['previous'].toString();
-      var next = response.data['next'];
+      String previous = response.data['previous'].toString();
+      String next = response.data['next'];
+      //print(next);
       return StarWarsState(
           characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
           isLoading: false,

@@ -5,8 +5,8 @@ import 'package:star_wars_app/features/index/data/datasource/remote_datasource_s
 import 'package:star_wars_app/features/index/data/repository/sw_repository.dart';
 import 'package:star_wars_app/features/index/data/model/report_model.dart';
 import 'package:star_wars_app/features/index/domain/repository/isw_repository.dart';
-import 'package:star_wars_app/features/index/domain/usecases/get_all_characters.dart';
-import 'package:star_wars_app/features/index/domain/usecases/iget_all_characters.dart';
+import 'package:star_wars_app/features/index/domain/usecases/get_characters.dart';
+import 'package:star_wars_app/features/index/domain/usecases/iget_characters.dart';
 import 'package:star_wars_app/features/index/domain/usecases/ireport_sighting.dart';
 import 'package:star_wars_app/features/index/domain/usecases/report_sighting.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/connection_state.dart';
@@ -33,7 +33,7 @@ final reportRespuesta =
 class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization
   CharacterNotifier() : super(const StarWarsState()) {
-    loadCharacters(Endpoints.swapiEndpoint);
+    loadCharacters(Endpoints.mongoDBEndpoint);
   }
 
   loadCharacters(String url) async {
@@ -41,8 +41,7 @@ class CharacterNotifier extends StateNotifier<StarWarsState> {
     final IRemoteDatasourceSW swDatasource = RemoteDatasourceSW();
     final IStarWarsRepository swCharacterRepository =
         StarWarsRepository(swDatasource);
-    final IGetAllCharacters getSWCharacters =
-        GetAllCharacter(swCharacterRepository);
+    final IGetCharacters getSWCharacters = GetCharacters(swCharacterRepository);
     final swCharacters = await getSWCharacters.getPage(url);
 
     state = swCharacters;

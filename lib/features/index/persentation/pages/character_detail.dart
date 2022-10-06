@@ -21,7 +21,8 @@ class CharacterDetails extends ConsumerWidget {
         appBar: AppBar(
           actions: const [BackButton()],
           title: Text(character.name,
-              style: const TextStyle(fontFamily: 'starwars')),
+              style: const TextStyle(
+                  fontFamily: 'starwars', color: Colors.yellow)),
           centerTitle: true,
         ),
         body: Container(
@@ -35,14 +36,9 @@ class CharacterDetails extends ConsumerWidget {
                 ElevatedButton(
                     onPressed: () {
                       if (ref.watch(swithCurrentValue).switchState) {
-                        ref
-                            .read(reportProvider.notifier)
-                            .reportSighting(ReportModel(
-                              id: 1,
-                              name: "nametext",
-                              price: "123",
-                              quantity: "13",
-                            ));
+                        ref.read(reportProvider.notifier).reportSighting(
+                            ReportModel(
+                                body: "", id: "", title: "", userId: ""));
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

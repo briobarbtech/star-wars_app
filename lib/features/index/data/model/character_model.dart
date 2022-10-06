@@ -6,6 +6,7 @@ class CharacterModel implements Character {
     required this.eyeColor,
     required this.gender,
     required this.hairColor,
+    required this.skinColor,
     required this.height,
     required this.homeworld,
     required this.mass,
@@ -20,6 +21,8 @@ class CharacterModel implements Character {
   @override
   String hairColor;
   @override
+  String skinColor;
+  @override
   String height;
   @override
   String homeworld;
@@ -33,6 +36,7 @@ class CharacterModel implements Character {
         eyeColor: json["eye_color"],
         gender: json["gender"],
         hairColor: json["hair_color"],
+        skinColor: json["skin_color"],
         height: json["height"],
         homeworld: json["homeworld"],
         mass: json["mass"],
@@ -44,6 +48,7 @@ class CharacterModel implements Character {
         "eye_color": eyeColor,
         "gender": gender,
         "hair_color": hairColor,
+        "skin_color": skinColor,
         "height": height,
         "homeworld": homeworld,
         "mass": mass,

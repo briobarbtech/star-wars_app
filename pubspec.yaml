@@ -36,6 +36,7 @@ dependencies:
   flutter_hooks: ^0.18.0
   go_router:
   freezed_annotation: ^1.1.0
+  http: ^0.13.5
 
   
 
