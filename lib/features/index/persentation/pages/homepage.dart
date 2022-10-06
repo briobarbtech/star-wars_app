@@ -23,8 +23,7 @@ class Homepage extends ConsumerWidget {
     bool isLoading = ref.watch(characterProvider).isLoading;
 
     var counter = ref.watch(counterProvider);
-    var bg = const NetworkImage(
-        "https://www.enjpg.com/img/2020/space-background-19.jpg");
+    var bg = const AssetImage("lib/core/assets/images/bg.jpg");
     return Scaffold(
         drawer: DrawerStarWars(
           switchProvider: swithCurrentValue,
@@ -102,8 +101,7 @@ class Homepage extends ConsumerWidget {
 
 class DrawerStarWars extends ConsumerWidget {
   DrawerStarWars({Key? key, required this.switchProvider}) : super(key: key);
-  var bg2 = const NetworkImage(
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1920px-Star_Wars_Logo.svg.png");
+  var bg2 = const AssetImage("lib/core/assets/images/banner.png");
   final StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>
       switchProvider;
 
