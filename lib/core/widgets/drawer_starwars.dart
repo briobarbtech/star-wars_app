@@ -1,15 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:flutter/material.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/connection_state.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
-import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
+import 'package:star_wars_app/characters/index/data/freezed/connection_state.dart';
+import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart';
+import 'package:star_wars_app/core/assets/utils/images_source.dart';
+import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 
 class DrawerStarWars extends ConsumerWidget {
-  DrawerStarWars(
+  const DrawerStarWars(
       {Key? key, required this.switchProvider, required this.starWarsState})
       : super(key: key);
-  var bg2 = const AssetImage("lib/core/assets/images/banner.png");
   final StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>
       switchProvider;
   final StateNotifierProvider<CharacterNotifier, StarWarsState> starWarsState;
@@ -23,10 +22,10 @@ class DrawerStarWars extends ConsumerWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: bg2,
+                image: ImageSource.bannerImage,
                 fit: BoxFit.cover,
               )),
               child: null,

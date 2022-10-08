@@ -5,7 +5,7 @@ Column iconInfo(context, String text, icon) {
   return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
     FaIcon(
       icon,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       size: 24.0,
     ),
     const SizedBox(
@@ -13,7 +13,7 @@ Column iconInfo(context, String text, icon) {
     ),
     Text(
       text,
-      style: const TextStyle(color: Colors.white),
+      style: Theme.of(context).textTheme.headline2,
     )
   ]);
 }

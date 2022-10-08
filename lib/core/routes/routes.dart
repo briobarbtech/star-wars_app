@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:star_wars_app/features/index/domain/entities/character.dart';
-import 'package:star_wars_app/features/index/persentation/pages/character_detail.dart';
-import 'package:star_wars_app/features/index/persentation/pages/homepage.dart';
-import 'package:star_wars_app/features/index/persentation/pages/not_found.dart';
+import 'package:star_wars_app/characters/index/domain/entities/character.dart';
+import 'package:star_wars_app/characters/index/persentation/pages/character_detail.dart';
+import 'package:star_wars_app/characters/index/persentation/pages/homepage.dart';
+import 'package:star_wars_app/characters/index/persentation/pages/not_found.dart';
 
 abstract class StarWarsRoutes {
   static final GoRouter router = GoRouter(routes: <GoRoute>[

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:star_wars_app/features/index/domain/entities/character.dart';
+import 'package:star_wars_app/characters/index/domain/entities/character.dart';
 
 Widget infoCharacter(Character character, context) {
   return SizedBox(
@@ -32,7 +32,7 @@ Widget infoCharacter(Character character, context) {
                           color: Colors.white,
                           size: 24.0,
                         ),
-                        title: const Text("Fecha de cumpleaños: "),
+                        title: const Text("Fecha de nacimiento: "),
                         subtitle: Text(character.birthYear))),
                 Container(
                     decoration: BoxDecoration(
@@ -56,7 +56,7 @@ Widget infoCharacter(Character character, context) {
                         size: 24.0,
                       ),
                       title: const Text("Estatura: "),
-                      subtitle: Text('${character.height}cm'),
+                      subtitle: Text('${character.height} cm'),
                     )),
                 const SizedBox(
                   width: 20,
