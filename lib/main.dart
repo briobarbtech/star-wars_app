@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         ),
       ));
 }
-
+// Solucionar que los widgets se salen del espacio
 // Estilizar el Widget de ConnectionVerifier
 // Traer el planeta
 // Solucionar el porque la primera vez que reporta da un error

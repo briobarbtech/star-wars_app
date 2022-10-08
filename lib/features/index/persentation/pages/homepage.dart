@@ -26,95 +26,99 @@ class Homepage extends ConsumerWidget {
 
     var counter = ref.watch(counterProvider);
     var bg = const AssetImage("lib/core/assets/images/bg.png");
-    return Scaffold(
-        drawer: DrawerStarWars(
-          switchProvider: swithCurrentValue,
-          starWarsState: characterProvider,
-        ),
-        appBar: AppBar(
-            centerTitle: true,
-            title: Text("StarWars APP",
-                style: Theme.of(context).textTheme.headline1)),
-        body: !isLoading
-            ? Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+    return !isLoading
+        ? Scaffold(
+            drawer: DrawerStarWars(
+              switchProvider: swithCurrentValue,
+              starWarsState: characterProvider,
+            ),
+            appBar: AppBar(
+                centerTitle: true,
+                title: Text("StarWars APP",
+                    style: Theme.of(context).textTheme.headline1)),
+            body: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              child: Column(
+                children: [
+                  ConnectionVerifier(swichtState: swithCurrentValue),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: swCharacterData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                            onTap: () {
+                              context.go('/details',
+                                  extra: swCharacterData[index]);
+                            },
+                            leading: swCharacterData[index].gender == "male"
+                                ? const Icon(Icons.female_sharp)
+                                : const Icon(Icons.male_sharp),
+                            trailing: TextButton(
+                                onPressed: () {
+                                  context.go('/details',
+                                      extra: swCharacterData[index]);
+                                },
+                                child: const Text(
+                                  "Ver más",
+                                  //style: Theme.of(context).textTheme.titleMedium,
+                                )),
+                            title: Text(
+                              swCharacterData[index].name,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ));
+                      }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(width: 20.0),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (ref.watch(characterProvider).previous !=
+                                'null') {
+                              ref.read(counterProvider.notifier).state--;
+                              final url = ref.watch(characterProvider).previous;
+                              ref
+                                  .read(characterProvider.notifier)
+                                  .loadCharacters(url);
+                            }
+                          },
+                          child: Text("Previous ${counter - 1}")),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (ref.watch(characterProvider).next != 'null') {
+                              ref.read(counterProvider.notifier).state++;
+                              final url = ref.watch(characterProvider).next;
+                              ref
+                                  .read(characterProvider.notifier)
+                                  .loadCharacters(url);
+                            }
+                          },
+                          child: Text("Next ${counter + 1}")),
+                      const SizedBox(width: 20.0)
+                    ],
+                  )
+                ],
+              ),
+            ))
+        : Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: bg,
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
                 child: Column(
-                  children: [
-                    ConnectionVerifier(swichtState: swithCurrentValue),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: swCharacterData.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                              onTap: () {
-                                context.go('/details',
-                                    extra: swCharacterData[index]);
-                              },
-                              leading: swCharacterData[index].gender == "male"
-                                  ? const Icon(Icons.female_sharp)
-                                  : const Icon(Icons.male_sharp),
-                              trailing: TextButton(
-                                  onPressed: () {
-                                    context.go('/details',
-                                        extra: swCharacterData[index]);
-                                  },
-                                  child: const Text(
-                                    "Ver más",
-                                    //style: Theme.of(context).textTheme.titleMedium,
-                                  )),
-                              title: Text(
-                                swCharacterData[index].name,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ));
-                        }),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(width: 20.0),
-                        ElevatedButton(
-                            onPressed: () async {
-                              if (ref.watch(characterProvider).previous !=
-                                  'null') {
-                                ref.read(counterProvider.notifier).state--;
-                                final url =
-                                    ref.watch(characterProvider).previous;
-                                ref
-                                    .read(characterProvider.notifier)
-                                    .loadCharacters(url);
-                              }
-                            },
-                            child: Text("Previous ${counter - 1}")),
-                        ElevatedButton(
-                            onPressed: () async {
-                              if (ref.watch(characterProvider).next != 'null') {
-                                ref.read(counterProvider.notifier).state++;
-                                final url = ref.watch(characterProvider).next;
-                                ref
-                                    .read(characterProvider.notifier)
-                                    .loadCharacters(url);
-                              }
-                            },
-                            child: Text("Next ${counter + 1}")),
-                        const SizedBox(width: 20.0)
-                      ],
-                    )
-                  ],
-                ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: bg,
-                    fit: BoxFit.cover,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 80.0,
                   ),
-                ),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ));
+                ])));
   }
 }
 
