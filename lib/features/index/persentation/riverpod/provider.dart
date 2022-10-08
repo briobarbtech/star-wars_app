@@ -1,9 +1,9 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_sw.dart';
 import 'package:star_wars_app/features/index/data/datasource/remote_datasource_sw.dart';
 import 'package:star_wars_app/features/index/data/repository/sw_repository.dart';
-import 'package:star_wars_app/features/index/data/model/report_model.dart';
 import 'package:star_wars_app/features/index/domain/repository/isw_repository.dart';
 import 'package:star_wars_app/features/index/domain/usecases/get_characters.dart';
 import 'package:star_wars_app/features/index/domain/usecases/iget_characters.dart';
@@ -44,7 +44,15 @@ class CharacterNotifier extends StateNotifier<StarWarsState> {
     final IGetCharacters getSWCharacters = GetCharacters(swCharacterRepository);
     final swCharacters = await getSWCharacters.getPage(url);
 
+    // ************************ HIVE ************************* //
+
+    // ****************************************************** //
     state = swCharacters;
+  }
+
+  Future<void> cleanLocalStorage() async {
+    Box boxStarWars = await Hive.openBox('starwars');
+    boxStarWars.clear();
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:star_wars_app/features/index/data/hive/model/starwars_state_hive.dart';
 import 'package:star_wars_app/features/index/data/model/character_model.dart';
 
 part 'starwars_state.freezed.dart';
@@ -21,4 +22,11 @@ class StarWarsState with _$StarWarsState {
 
   factory StarWarsState.fromJson(Map<String, dynamic> json) =>
       _$StarWarsStateFromJson(json);
+  factory StarWarsState.fromHiveObject(StarWarsStateHive starWarsStateHive) =>
+      StarWarsState(
+          characters: starWarsStateHive.listCharacter
+              .map((e) => CharacterModel.fromJson(e))
+              .toList(),
+          previous: starWarsStateHive.previous,
+          next: starWarsStateHive.next);
 }

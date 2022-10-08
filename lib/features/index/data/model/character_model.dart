@@ -43,6 +43,18 @@ class CharacterModel implements Character {
         name: json["name"],
       );
 
+  Map<String, dynamic> toMap() => {
+        "birth_year": birthYear,
+        "eye_color": eyeColor,
+        "gender": gender,
+        "hair_color": hairColor,
+        "skin_color": skinColor,
+        "height": height,
+        "homeworld": homeworld,
+        "mass": mass,
+        "name": name,
+      };
+
   Map<String, dynamic> toJson() => {
         "birth_year": birthYear,
         "eye_color": eyeColor,

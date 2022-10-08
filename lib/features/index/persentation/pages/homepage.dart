@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:star_wars_app/core/widgets/connection_verifier.dart';
+import 'package:star_wars_app/core/widgets/drawer_starwars.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/connection_state.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
@@ -23,32 +25,34 @@ class Homepage extends ConsumerWidget {
     bool isLoading = ref.watch(characterProvider).isLoading;
 
     var counter = ref.watch(counterProvider);
-    var bg = const AssetImage("lib/core/assets/images/bg.jpg");
+    var bg = const AssetImage("lib/core/assets/images/bg.png");
     return Scaffold(
         drawer: DrawerStarWars(
           switchProvider: swithCurrentValue,
+          starWarsState: characterProvider,
         ),
         appBar: AppBar(
             centerTitle: true,
-            title: const Text("StarWars APP",
-                style:
-                    TextStyle(fontFamily: 'starwars', color: Colors.yellow))),
+            title: Text("StarWars APP",
+                style: Theme.of(context).textTheme.headline1)),
         body: !isLoading
             ? Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: bg,
-                    fit: BoxFit.cover,
-                  ),
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 child: Column(
                   children: [
+                    ConnectionVerifier(swichtState: swithCurrentValue),
                     ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: swCharacterData.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
+                              onTap: () {
+                                context.go('/details',
+                                    extra: swCharacterData[index]);
+                              },
                               leading: swCharacterData[index].gender == "male"
                                   ? const Icon(Icons.female_sharp)
                                   : const Icon(Icons.male_sharp),
@@ -61,7 +65,10 @@ class Homepage extends ConsumerWidget {
                                     "Ver más",
                                     //style: Theme.of(context).textTheme.titleMedium,
                                   )),
-                              title: Text(swCharacterData[index].name));
+                              title: Text(
+                                swCharacterData[index].name,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ));
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,11 +76,12 @@ class Homepage extends ConsumerWidget {
                         const SizedBox(width: 20.0),
                         ElevatedButton(
                             onPressed: () async {
-                              if (counter > 1) {
+                              if (ref.watch(characterProvider).previous !=
+                                  'null') {
                                 ref.read(counterProvider.notifier).state--;
                                 final url =
                                     ref.watch(characterProvider).previous;
-                                await ref
+                                ref
                                     .read(characterProvider.notifier)
                                     .loadCharacters(url);
                               }
@@ -81,11 +89,13 @@ class Homepage extends ConsumerWidget {
                             child: Text("Previous ${counter - 1}")),
                         ElevatedButton(
                             onPressed: () async {
-                              ref.read(counterProvider.notifier).state++;
-                              final url = ref.watch(characterProvider).next;
-                              await ref
-                                  .read(characterProvider.notifier)
-                                  .loadCharacters(url);
+                              if (ref.watch(characterProvider).next != 'null') {
+                                ref.read(counterProvider.notifier).state++;
+                                final url = ref.watch(characterProvider).next;
+                                ref
+                                    .read(characterProvider.notifier)
+                                    .loadCharacters(url);
+                              }
                             },
                             child: Text("Next ${counter + 1}")),
                         const SizedBox(width: 20.0)
@@ -94,53 +104,20 @@ class Homepage extends ConsumerWidget {
                   ],
                 ),
               )
-            : const Center(
-                child: CircularProgressIndicator(),
+            : Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: bg,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
               ));
   }
 }
 
-class DrawerStarWars extends ConsumerWidget {
-  DrawerStarWars({Key? key, required this.switchProvider}) : super(key: key);
-  var bg2 = const AssetImage("lib/core/assets/images/banner.png");
-  final StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>
-      switchProvider;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: bg2,
-              fit: BoxFit.cover,
-            )),
-            child: null,
-          ),
-          Container(
-            decoration: ref.watch(switchProvider).switchState
-                ? const BoxDecoration(color: Colors.green)
-                : const BoxDecoration(color: Colors.red),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text("Conexión"),
-                Switch(
-                    value: ref.watch(switchProvider).switchState,
-                    onChanged: (bool valueIn) {
-                      ref.read(swithCurrentValue.notifier).switchState(valueIn);
-                    }),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
 
 
 /* 

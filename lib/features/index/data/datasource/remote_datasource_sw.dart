@@ -1,44 +1,39 @@
 import 'package:dio/dio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/features/index/data/datasource/iremote_datasource_sw.dart';
+import 'package:star_wars_app/features/index/data/datasource/local_storage_datasource_sw.dart';
 import 'package:star_wars_app/features/index/data/model/character_model.dart';
 import 'package:star_wars_app/features/index/persentation/riverpod/starwars_state.dart';
 
 class RemoteDatasourceSW extends IRemoteDatasourceSW {
   @override
-  Future<StarWarsState> getFirstPage() async {
-    Response response = await Dio().get(Endpoints.swapiEndpoint);
-    if (response.statusCode == 200) {
-      final List result = response.data['results'];
-      String previous = response.data['previous'].toString();
-      String next = response.data['next'];
-      //print(next);
-      return StarWarsState(
-          characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
-          isLoading: false,
-          previous: previous,
-          next: next);
-    } else {
-      throw Exception(response);
-    }
-  }
-
-  @override
   Future<StarWarsState> getPage(String page) async {
-    Response response = await Dio().get(page);
-    //print(response.data['results']);
-    if (response.statusCode == 200) {
-      final List result = response.data['results'];
-      String previous = response.data['previous'].toString();
-      String next = response.data['next'];
-      //print(next);
-      return StarWarsState(
-          characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
-          isLoading: false,
-          previous: previous,
-          next: next);
+    // Abro la base de datos local para verificar si la pagina que busco está en memoria
+    final boxHive = await Hive.openBox('starwars');
+    if (boxHive.containsKey(page)) {
+      //("Encontrado en local Storage");
+      // Si está la traigo y la convierto en un objeto StarWarsState y la devuelvo al repositorio que llamó la función
+      var starWarsState = LocalStorageDatasourceSW().changePage(page);
+      return starWarsState;
     } else {
-      throw Exception(response);
+      // sino hago la petición a la api
+      Response response = await Dio().get(page);
+      if (response.statusCode == 200) {
+        // Creo el objeto con la respuesta de la API
+        List result = response.data['results'];
+        StarWarsState starWarsState = StarWarsState(
+            characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
+            isLoading: false,
+            previous: response.data['previous'].toString(),
+            next: response.data['next'].toString());
+        //y tambien lo guardo en localStorage para no repetir está petición y devuelvo el resultado
+        LocalStorageDatasourceSW().saveStarWarsStates(page, starWarsState);
+        return starWarsState;
+      } else {
+        // Si no está el recurso en una u otra fuente de datos devuelvo una Excepción
+        throw Exception(response);
+      }
     }
   }
 
@@ -48,7 +43,6 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
         await Dio().post(Endpoints.reportEndpoint, data: report.toJson());
 
     final String statusCode = response.statusCode.toString();
-    print(statusCode);
     return statusCode;
   }
 }
