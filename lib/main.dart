@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       // Aquí inserto la configuración para el tema global
       theme: ThemeDataSW.themeDataSW);
 }
+
 // Solucionar que los widgets se salen del espacio
 // Estilizar el Widget de ConnectionVerifier
 // Traer el planeta

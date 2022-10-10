@@ -75,6 +75,8 @@ flutter:
     - lib/core/assets/images/bg.png
     - lib/core/assets/images/banner.png
     - lib/core/assets/images/banner_profile.jpg
+    - lib/core/assets/images/planets.jpg
+    - lib/core/assets/images/characters.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

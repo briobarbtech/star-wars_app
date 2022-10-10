@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:star_wars_app/characters/index/data/freezed/connection_state.dart';
+import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart';
 import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/core/widgets/drawer_starwars.dart';
 import 'package:go_router/go_router.dart';
+
+final swithCurrentValue =
+    StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>(
+        (ref) => ConnectionStateNotifier());
+
+final characterProvider =
+    StateNotifierProvider<CharacterNotifier, StarWarsState>(
+        ((ref) => CharacterNotifier()));
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,38 +25,32 @@ class HomePage extends ConsumerWidget {
       drawer: DrawerStarWars(
           starWarsState: characterProvider, switchProvider: swithCurrentValue),
       appBar: AppBar(
-        title:
-            Text("StarWars APP", style: Theme.of(context).textTheme.headline1),
+        title: const Text("StarWars APP"),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  ButtonCard(
-                      image: charactersImage,
-                      title: "Character",
-                      route: 'character_list'),
-                  ButtonCard(image: planetsImage, title: "Planets", route: ''),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                ButtonCard(
+                    image: charactersImage,
+                    title: "Character",
+                    route: 'character_list'),
+                ButtonCard(image: planetsImage, title: "Planets", route: ''),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const SizedBox(height: 8.0),
+          ],
         ),
       ),
     );

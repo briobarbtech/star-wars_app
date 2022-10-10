@@ -11,13 +11,14 @@ class ConnectionVerifier extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(swichtState).switchState;
     return Container(
         height: 60,
         decoration: BoxDecoration(
-            color: ref.watch(swichtState).switchState
+            color: state
                 ? Theme.of(context).colorScheme.tertiary
                 : Theme.of(context).colorScheme.inversePrimary),
-        child: ref.watch(swichtState).switchState
+        child: state
             ? const Center(child: Text("Conectado"))
             : const Center(child: Text("Desconectado")));
   }

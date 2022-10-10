@@ -18,6 +18,18 @@ import 'package:star_wars_app/characters/index/domain/usecases/iget_characters.d
 import 'package:star_wars_app/characters/index/domain/usecases/ireport_sighting.dart';
 import 'package:star_wars_app/characters/index/domain/usecases/report_sighting.dart';
 
+StateNotifierProvider<ReportStateNotifier, ReportState> reportProvider =
+    StateNotifierProvider<ReportStateNotifier, ReportState>(
+        ((ref) => ReportStateNotifier()));
+StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>
+    swithCurrentValue =
+    StateNotifierProvider<ConnectionStateNotifier, ConnectionStateSW>(
+        ((ref) => ConnectionStateNotifier()));
+
+StateNotifierProvider<CharacterNotifier, StarWarsState> characterProvider =
+    StateNotifierProvider<CharacterNotifier, StarWarsState>(
+        ((ref) => CharacterNotifier()));
+
 class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization
   CharacterNotifier() : super(const StarWarsState()) {
