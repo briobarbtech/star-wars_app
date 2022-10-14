@@ -21,12 +21,6 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: 'homepage',
     routes: <GoRoute>[
       GoRoute(
-        name: HomePage.routeName,
-        path: HomePage.routeLocation,
-        builder: (BuildContext context, GoRouterState state) =>
-            const HomePage(),
-      ),
-      GoRoute(
         name: CharacterList.routeName,
         path: CharacterList.routeLocation,
         builder: (BuildContext context, GoRouterState state) =>
