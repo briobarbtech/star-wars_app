@@ -26,12 +26,14 @@ class _$StarWarsStateTearOff {
       {List<CharacterModel> characters = const [],
       bool isLoading = false,
       String previous = "",
-      String next = ""}) {
+      String next = "",
+      dynamic menuState = MenuState.splashscreen}) {
     return _StarWarsState(
       characters: characters,
       isLoading: isLoading,
       previous: previous,
       next: next,
+      menuState: menuState,
     );
   }
 
@@ -53,6 +55,7 @@ mixin _$StarWarsState {
   String get previous =>
       throw _privateConstructorUsedError; // Aquí guardo la dirección a la lista siguiente
   String get next => throw _privateConstructorUsedError;
+  dynamic get menuState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,7 +72,8 @@ abstract class $StarWarsStateCopyWith<$Res> {
       {List<CharacterModel> characters,
       bool isLoading,
       String previous,
-      String next});
+      String next,
+      dynamic menuState});
 }
 
 /// @nodoc
@@ -87,6 +91,7 @@ class _$StarWarsStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? previous = freezed,
     Object? next = freezed,
+    Object? menuState = freezed,
   }) {
     return _then(_value.copyWith(
       characters: characters == freezed
@@ -105,6 +110,10 @@ class _$StarWarsStateCopyWithImpl<$Res>
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
+      menuState: menuState == freezed
+          ? _value.menuState
+          : menuState // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -120,7 +129,8 @@ abstract class _$StarWarsStateCopyWith<$Res>
       {List<CharacterModel> characters,
       bool isLoading,
       String previous,
-      String next});
+      String next,
+      dynamic menuState});
 }
 
 /// @nodoc
@@ -140,6 +150,7 @@ class __$StarWarsStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? previous = freezed,
     Object? next = freezed,
+    Object? menuState = freezed,
   }) {
     return _then(_StarWarsState(
       characters: characters == freezed
@@ -158,6 +169,7 @@ class __$StarWarsStateCopyWithImpl<$Res>
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
+      menuState: menuState == freezed ? _value.menuState : menuState,
     ));
   }
 }
@@ -169,7 +181,8 @@ class _$_StarWarsState implements _StarWarsState {
       {this.characters = const [],
       this.isLoading = false,
       this.previous = "",
-      this.next = ""});
+      this.next = "",
+      this.menuState = MenuState.splashscreen});
 
   factory _$_StarWarsState.fromJson(Map<String, dynamic> json) =>
       _$$_StarWarsStateFromJson(json);
@@ -186,10 +199,13 @@ class _$_StarWarsState implements _StarWarsState {
   @JsonKey()
   @override // Aquí guardo la dirección a la lista siguiente
   final String next;
+  @JsonKey()
+  @override
+  final dynamic menuState;
 
   @override
   String toString() {
-    return 'StarWarsState(characters: $characters, isLoading: $isLoading, previous: $previous, next: $next)';
+    return 'StarWarsState(characters: $characters, isLoading: $isLoading, previous: $previous, next: $next, menuState: $menuState)';
   }
 
   @override
@@ -201,7 +217,8 @@ class _$_StarWarsState implements _StarWarsState {
                 .equals(other.characters, characters) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.previous, previous) &&
-            const DeepCollectionEquality().equals(other.next, next));
+            const DeepCollectionEquality().equals(other.next, next) &&
+            const DeepCollectionEquality().equals(other.menuState, menuState));
   }
 
   @override
@@ -210,7 +227,8 @@ class _$_StarWarsState implements _StarWarsState {
       const DeepCollectionEquality().hash(characters),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(previous),
-      const DeepCollectionEquality().hash(next));
+      const DeepCollectionEquality().hash(next),
+      const DeepCollectionEquality().hash(menuState));
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +246,8 @@ abstract class _StarWarsState implements StarWarsState {
       {List<CharacterModel> characters,
       bool isLoading,
       String previous,
-      String next}) = _$_StarWarsState;
+      String next,
+      dynamic menuState}) = _$_StarWarsState;
 
   factory _StarWarsState.fromJson(Map<String, dynamic> json) =
       _$_StarWarsState.fromJson;
@@ -241,6 +260,8 @@ abstract class _StarWarsState implements StarWarsState {
   String get previous;
   @override // Aquí guardo la dirección a la lista siguiente
   String get next;
+  @override
+  dynamic get menuState;
   @override
   @JsonKey(ignore: true)
   _$StarWarsStateCopyWith<_StarWarsState> get copyWith =>

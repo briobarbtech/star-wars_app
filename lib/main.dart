@@ -23,9 +23,10 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
         // Defino la configuración de GoRouter para manejar la navegación dentro de la app
-        routeInformationProvider: router.routeInformationProvider,
+
         routeInformationParser: router.routeInformationParser,
         routerDelegate: router.routerDelegate,
+        routeInformationProvider: router.routeInformationProvider,
         title: "Personajes",
 
         // Aquí inserto la configuración para el tema global

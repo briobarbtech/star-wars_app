@@ -17,7 +17,8 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       drawer: DrawerStarWars(
-          starWarsState: characterProvider, switchProvider: swithCurrentValue),
+          starWarsState: stateNotifierProvider,
+          switchProvider: swithCurrentValue),
       appBar: AppBar(
         title:
             Text("StarWars APP", style: Theme.of(context).textTheme.headline1),

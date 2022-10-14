@@ -4,8 +4,8 @@ import 'package:star_wars_app/core/assets/utils/images_source.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
-
-  static const String route = '/menu';
+  static String get routeName => 'splash_page';
+  static String get routeLocation => '/$routeName';
   @override
   State<SplashPage> createState() => _SplashPageState();
 }

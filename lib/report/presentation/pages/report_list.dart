@@ -10,7 +10,7 @@ final pageCounterProvider = StateProvider((ref) => 1);
 class ReportList extends ConsumerWidget {
   const ReportList({Key? key}) : super(key: key);
   static String get routeName => 'report_list';
-  static String get routeLocation => 'report_list';
+  static String get routeLocation => '/$routeName';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* Characters */

@@ -5,6 +5,8 @@ import 'package:star_wars_app/characters/index/data/model/character_model.dart';
 part 'starwars_state.freezed.dart';
 part 'starwars_state.g.dart';
 
+enum MenuState { menu, report, splashscreen }
+
 @Freezed()
 class StarWarsState with _$StarWarsState {
   const factory StarWarsState(
@@ -18,7 +20,8 @@ class StarWarsState with _$StarWarsState {
       // Aqupi guardo la dirección a la lista anterior
       @Default("") String previous,
       // Aquí guardo la dirección a la lista siguiente
-      @Default("") String next}) = _StarWarsState;
+      @Default("") String next,
+      @Default(MenuState.splashscreen) menuState}) = _StarWarsState;
 
   factory StarWarsState.fromJson(Map<String, dynamic> json) =>
       _$StarWarsStateFromJson(json);

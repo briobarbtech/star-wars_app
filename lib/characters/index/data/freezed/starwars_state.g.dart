@@ -15,6 +15,7 @@ _$_StarWarsState _$$_StarWarsStateFromJson(Map<String, dynamic> json) =>
       isLoading: json['isLoading'] as bool? ?? false,
       previous: json['previous'] as String? ?? "",
       next: json['next'] as String? ?? "",
+      menuState: json['menuState'] ?? MenuState.splashscreen,
     );
 
 Map<String, dynamic> _$$_StarWarsStateToJson(_$_StarWarsState instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_StarWarsStateToJson(_$_StarWarsState instance) =>
       'isLoading': instance.isLoading,
       'previous': instance.previous,
       'next': instance.next,
+      'menuState': instance.menuState,
     };

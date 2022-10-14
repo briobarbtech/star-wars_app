@@ -10,13 +10,13 @@ final pageCounterProvider = StateProvider((ref) => 1);
 class CharacterList extends ConsumerWidget {
   const CharacterList({Key? key}) : super(key: key);
   static String get routeName => 'character_list';
-  static String get routeLocation => 'character_list';
+  static String get routeLocation => '/$routeName';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* Characters */
-    final swCharacterData = ref.watch(characterProvider).characters;
+    final swCharacterData = ref.watch(stateNotifierProvider).characters;
     /* State of petition */
-    bool isLoading = ref.watch(characterProvider).isLoading;
+    bool isLoading = ref.watch(stateNotifierProvider).isLoading;
     /* page counter */
     var pageCounter = ref.watch(pageCounterProvider);
 
@@ -65,24 +65,26 @@ class CharacterList extends ConsumerWidget {
                         const SizedBox(width: 20.0),
                         ElevatedButton(
                             onPressed: () async {
-                              if (ref.watch(characterProvider).previous !=
+                              if (ref.watch(stateNotifierProvider).previous !=
                                   'null') {
                                 ref.read(pageCounterProvider.notifier).state--;
                                 final url =
-                                    ref.watch(characterProvider).previous;
+                                    ref.watch(stateNotifierProvider).previous;
                                 ref
-                                    .read(characterProvider.notifier)
+                                    .read(stateNotifierProvider.notifier)
                                     .loadCharacters(url);
                               }
                             },
                             child: Text("Previous ${pageCounter - 1}")),
                         ElevatedButton(
                             onPressed: () async {
-                              if (ref.watch(characterProvider).next != 'null') {
+                              if (ref.watch(stateNotifierProvider).next !=
+                                  'null') {
                                 ref.read(pageCounterProvider.notifier).state++;
-                                final url = ref.watch(characterProvider).next;
+                                final url =
+                                    ref.watch(stateNotifierProvider).next;
                                 ref
-                                    .read(characterProvider.notifier)
+                                    .read(stateNotifierProvider.notifier)
                                     .loadCharacters(url);
                               }
                             },
