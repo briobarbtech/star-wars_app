@@ -6,11 +6,12 @@ import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
-
+  static String get routeName => 'homepage';
+  static String get routeLocation => '/';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const String charactersImage = "lib/core/assets/images/characters.jpg";
-    const String planetsImage = "lib/core/assets/images/planets.jpg";
+    const String reportImage = "lib/core/assets/images/reports.jpg";
     return Scaffold(
       drawer: DrawerStarWars(
           starWarsState: characterProvider, switchProvider: swithCurrentValue),
@@ -38,7 +39,10 @@ class HomePage extends ConsumerWidget {
                       image: charactersImage,
                       title: "Character",
                       route: 'character_list'),
-                  ButtonCard(image: planetsImage, title: "Planets", route: ''),
+                  ButtonCard(
+                      image: reportImage,
+                      title: "Reports",
+                      route: 'report_list'),
                 ],
               ),
               const SizedBox(

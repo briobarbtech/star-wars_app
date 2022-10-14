@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:star_wars_app/characters/index/persentation/pages/character_detail.dart';
 import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/core/widgets/connection_verifier.dart';
 
@@ -10,7 +11,7 @@ final pageCounterProvider = StateProvider((ref) => 1);
 class CharacterList extends ConsumerWidget {
   const CharacterList({Key? key}) : super(key: key);
   static String get routeName => 'character_list';
-  static String get routeLocation => 'character_list';
+  static String get routeLocation => routeName;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* Characters */
@@ -38,7 +39,8 @@ class CharacterList extends ConsumerWidget {
                           return SingleChildScrollView(
                             child: ListTile(
                                 onTap: () {
-                                  context.go('/details',
+                                  context.go(
+                                      '/${CharacterDetails.routeLocation}',
                                       extra: swCharacterData[index]);
                                 },
                                 leading: swCharacterData[index].gender == "male"
@@ -46,7 +48,8 @@ class CharacterList extends ConsumerWidget {
                                     : const Icon(Icons.male_sharp),
                                 trailing: TextButton(
                                     onPressed: () {
-                                      context.go('/details',
+                                      context.go(
+                                          '/${CharacterDetails.routeLocation}',
                                           extra: swCharacterData[index]);
                                     },
                                     child: const Text(

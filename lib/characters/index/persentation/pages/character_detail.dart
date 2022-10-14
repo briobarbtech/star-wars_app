@@ -9,7 +9,7 @@ class CharacterDetails extends ConsumerWidget {
   const CharacterDetails({Key? key, required this.character}) : super(key: key);
   final Character character;
   static String get routeName => 'character_details';
-  static String get routeLocation => 'character_details';
+  static String get routeLocation => routeName;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

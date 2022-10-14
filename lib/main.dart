@@ -20,12 +20,12 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
     return MaterialApp.router(
         // Defino la configuración de GoRouter para manejar la navegación dentro de la app
-        routeInformationProvider: router.routeInformationProvider,
-        routeInformationParser: router.routeInformationParser,
-        routerDelegate: router.routerDelegate,
+        routeInformationProvider:
+            StarWarsRoutes.router.routeInformationProvider,
+        routeInformationParser: StarWarsRoutes.router.routeInformationParser,
+        routerDelegate: StarWarsRoutes.router.routerDelegate,
         title: "Personajes",
 
         // Aquí inserto la configuración para el tema global
