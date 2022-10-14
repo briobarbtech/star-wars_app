@@ -3,6 +3,7 @@ import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart'
 
 part 'starwars_state_hive.g.dart';
 
+// A través de esta clase de tipo Hive lograremos almacenar localmente los objetos StarWarsState en la db de Hive, pudiento convertirlos de nuevo a sus origen
 @HiveType(typeId: 1)
 class StarWarsStateHive {
   StarWarsStateHive(

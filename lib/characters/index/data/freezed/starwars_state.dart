@@ -22,6 +22,7 @@ class StarWarsState with _$StarWarsState {
 
   factory StarWarsState.fromJson(Map<String, dynamic> json) =>
       _$StarWarsStateFromJson(json);
+  // Defino un método que construye un objeto StarWarsState desde un StarWarsStateHive
   factory StarWarsState.fromHiveObject(StarWarsStateHive starWarsStateHive) =>
       StarWarsState(
           characters: starWarsStateHive.listCharacter

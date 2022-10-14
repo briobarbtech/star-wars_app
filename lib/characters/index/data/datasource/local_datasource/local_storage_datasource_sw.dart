@@ -8,37 +8,46 @@ class LocalStorageDatasourceSW extends ILocalStorageDatasourceSW {
   @override
   Future<void> saveIntoLocalStorage(
       String key, StarWarsState starWarsState) async {
+    // Abro la db de Hive
     final Box boxStarWars = await Hive.openBox('starwars');
+    // Agrego el objeto obtenido a la db de hive
     boxStarWars.put(key, StarWarsStateHive.fromMovieEntity(starWarsState));
     print("Guardado en local Storage");
   }
 
   @override
   Future<StarWarsState> getFromLocalStorage(String key) async {
+    // Abro la db de Hive
+
     final Box boxStarWars = await Hive.openBox('starwars');
-    // ************************ HIVE ************************* //
-    StarWarsStateHive next = boxStarWars.get(key);
-    List<CharacterModel> characters =
-        next.listCharacter.map((e) => CharacterModel.fromJson(e)).toList();
-    // ****************************************************** //
+    // Traigo el objeto StarWarsStateHive de la db de hive usando la llave recibida como parametro
+    StarWarsStateHive starWarsStateHive = boxStarWars.get(key);
+    // Construyo el objeto hive en uno StarWarsState
     StarWarsState starWarsState = StarWarsState(
         isLoading: false,
-        characters: characters,
-        next: next.next,
-        previous: next.previous);
+        characters: starWarsStateHive.listCharacter
+            .map((e) => CharacterModel.fromJson(e))
+            .toList(),
+        next: starWarsStateHive.next,
+        previous: starWarsStateHive.previous);
     starWarsState;
+    // Devuelvo el objeto construido anteriormente
     return starWarsState;
   }
 
   @override
   Future<bool> checkLocalStorage(String key) async {
+    // Abro la db de Hive
     final Box boxStarWars = await Hive.openBox('starwars');
+    // verifico si la db de hive contiene la key que recibe la función como parametro, y devuelvo el resultado de la consulta | Puede ser true o false
     return boxStarWars.containsKey(key);
   }
 
   @override
   Future<void> cleanLocalStorage() async {
+    // Abro la db de Hive
     Box boxStarWars = await Hive.openBox('starwars');
+    // llamo el método para limpiar la db de hive
     boxStarWars.clear();
   }
 }

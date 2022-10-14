@@ -15,35 +15,30 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp.router(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return MaterialApp.router(
+        // Defino la configuración de GoRouter para manejar la navegación dentro de la app
+        routeInformationProvider: router.routeInformationProvider,
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
+        title: "Personajes",
 
-      // Defino la configuración de GoRouter para manejar la navegación dentro de la app
-      routeInformationProvider: StarWarsRoutes.router.routeInformationProvider,
-      routeInformationParser: StarWarsRoutes.router.routeInformationParser,
-      routerDelegate: StarWarsRoutes.router.routerDelegate,
-      title: "Personajes",
-      // Aquí inserto la configuración para el tema global
-      theme: ThemeDataSW.themeDataSW);
+        // Aquí inserto la configuración para el tema global
+        theme: ThemeDataSW.themeDataSW);
+  }
 }
 
+// Hacer tarjetas para los reportes
 // Solucionar que los widgets se salen del espacio
 // Estilizar el Widget de ConnectionVerifier
 // Traer el planeta
 // Solucionar el porque la primera vez que reporta da un error
-// Escoger la info que envía el reporte
-/* TODO: - Hacer la card de los personajes
-  - Nacimiento (birth_year)
-  - Color de ojos (eye_color)
-  - Genero (gender)
-  - Color de pelo (hair_color)
-  - Altura (height)
-  - Mundo natal (homeworld)
-  - Peso (mass)
-  - Nombre (name)*/
+
 
 
 /* 

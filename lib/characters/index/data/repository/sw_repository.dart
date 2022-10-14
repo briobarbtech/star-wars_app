@@ -10,9 +10,4 @@ class StarWarsRepository extends IStarWarsRepository {
   Future<StarWarsState> getPage(String page) {
     return remoteDatasourceSW.getPage(page);
   }
-
-  @override
-  Future<String> reportSighting(report) {
-    return remoteDatasourceSW.reportSighting(report);
-  }
 }

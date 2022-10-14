@@ -47,15 +47,14 @@ Widget profile(context, Character character) {
                   height: 40.0,
                 ),
                 CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: Text(character.name[0],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
+                    radius: 50,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    child: Text(character.name[0],
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                        ))),
                 const SizedBox(
                   height: 10.0,
                 ),
