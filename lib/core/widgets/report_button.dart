@@ -17,7 +17,7 @@ ElevatedButton reportButton(WidgetRef ref, BuildContext context, character) {
         }
       },
       style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).colorScheme.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
           textStyle: Theme.of(context).textTheme.headline2),
       child: Text(

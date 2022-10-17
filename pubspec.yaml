@@ -95,7 +95,7 @@ flutter:
   fonts:
     - family: starwars
       fonts:
-        - asset: lib\core\assets\fonts\STJEDISE.TTF
+        - asset: lib/core/assets/fonts/STJEDISE.TTF
   # fonts:
   #   - family: Schyler
   #     fonts:
