@@ -13,7 +13,7 @@ abstract class StarWarsRoutes {
   static final GoRouter router = GoRouter(routes: <GoRoute>[
     GoRoute(
       path: '/',
-      builder: (BuildContext context, GoRouterState state) => const HomePage(),
+      builder: (BuildContext context, GoRouterState state) => HomePage(),
       routes: <GoRoute>[
         GoRoute(
           name: CharacterList.routeName,

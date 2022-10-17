@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
+import 'package:star_wars_app/core/widgets/connection_verifier.dart';
 import 'package:star_wars_app/report/data/model/report_model.dart';
 import 'package:star_wars_app/report/presentation/riverpod/provider.dart';
 
@@ -17,24 +19,22 @@ class ReportList extends ConsumerWidget {
     final reportsData = ref.watch(reportProvider).reports;
     /* State of petition */
     bool isLoading = ref.watch(reportProvider).isLoading;
-    return Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text("Reportes")),
-        body: !isLoading
-            ? StarWarsReportPage(reportsData: reportsData)
-            : Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                child: Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 80.0,
-                      ),
-                    ])),
-              ));
+    return !isLoading
+        ? StarWarsReportPage(reportsData: reportsData)
+        : Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 80.0,
+                  ),
+                ])),
+          );
   }
 }
 
@@ -54,6 +54,7 @@ class StarWarsReportPage extends StatelessWidget {
         ),
         child: Column(
           children: [
+            ConnectionVerifier(swichtState: swithCurrentValue),
             ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
