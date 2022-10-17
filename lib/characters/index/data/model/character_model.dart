@@ -1,7 +1,7 @@
 import 'package:star_wars_app/characters/index/domain/entities/character.dart';
 
 // Modelo que contiene los métodos de la clase Character que implementa
-class CharacterModel implements Character {
+class CharacterModel extends Character {
   CharacterModel(
       {required this.birthYear,
       required this.eyeColor,
@@ -11,28 +11,27 @@ class CharacterModel implements Character {
       required this.height,
       required this.homeworld,
       required this.mass,
-      required this.name,
-      required this.urlImage});
-  @override
+      required this.name})
+      : super(
+            birthYear: birthYear,
+            eyeColor: eyeColor,
+            gender: gender,
+            hairColor: hairColor,
+            skinColor: skinColor,
+            height: height,
+            homeworld: homeworld,
+            mass: mass,
+            name: name);
+
   String birthYear;
-  @override
   String eyeColor;
-  @override
   String gender;
-  @override
   String hairColor;
-  @override
   String skinColor;
-  @override
   String height;
-  @override
   String homeworld;
-  @override
   String mass;
-  @override
   String name;
-  @override
-  String urlImage;
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) => CharacterModel(
       birthYear: json["birth_year"],
@@ -43,8 +42,7 @@ class CharacterModel implements Character {
       height: json["height"],
       homeworld: json["homeworld"],
       mass: json["mass"],
-      name: json["name"],
-      urlImage: json["url"] ?? "null");
+      name: json["name"]);
 
   Map<String, dynamic> toMap() => {
         "birth_year": birthYear,
@@ -55,8 +53,7 @@ class CharacterModel implements Character {
         "height": height,
         "homeworld": homeworld,
         "mass": mass,
-        "name": name,
-        "url": urlImage
+        "name": name
       };
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +65,6 @@ class CharacterModel implements Character {
         "height": height,
         "homeworld": homeworld,
         "mass": mass,
-        "name": name,
-        "url": urlImage
+        "name": name
       };
 }

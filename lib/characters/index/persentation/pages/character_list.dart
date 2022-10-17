@@ -50,8 +50,7 @@ class CharacterList extends ConsumerWidget {
                                       extra: swCharacterData[index]);
                                 },
                                 child: const Text(
-                                  "Ver más",
-                                  //style: Theme.of(context).textTheme.titleMedium,
+                                  "See more",
                                 )),
                             title: Text(
                               swCharacterData[index].name,

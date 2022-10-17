@@ -38,7 +38,7 @@ class DrawerStarWars extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text("Conexión"),
+                  const Text("Connection"),
                   Switch(
                       activeColor: Theme.of(context).colorScheme.secondary,
                       value: ref.watch(switchProvider).switchState,
@@ -50,11 +50,11 @@ class DrawerStarWars extends ConsumerWidget {
             ),
             ListTile(
               selectedColor: Colors.white,
-              title: const Text("Limpiar LocalStorage"),
+              title: const Text("Wipe Local storage"),
               onTap: () {
                 ref.read(starWarsState.notifier).cleanLocalStorage();
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Se ha limpiado el almacenamiento local')));
+                    content: Text('Local storage was cleared successfully')));
                 Navigator.pop(context);
               },
             )

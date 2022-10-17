@@ -4,12 +4,14 @@ import 'package:star_wars_app/characters/index/data/datasource/local_datasource/
 import 'package:star_wars_app/characters/index/data/datasource/remote_datasource/iremote_datasource_sw.dart';
 import 'package:star_wars_app/characters/index/data/datasource/remote_datasource/remote_datasource_sw.dart';
 import 'package:star_wars_app/characters/index/data/freezed/connection_state.dart';
-import 'package:star_wars_app/characters/index/data/freezed/menu_state_sw.dart';
 import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart';
 import 'package:star_wars_app/characters/index/data/repository/sw_local_repository.dart';
+import 'package:star_wars_app/characters/index/domain/entities/planet.dart';
 import 'package:star_wars_app/characters/index/domain/repository/isw_repository_local.dart';
 import 'package:star_wars_app/characters/index/domain/usecases/get_from_local_storage.dart';
+import 'package:star_wars_app/characters/index/domain/usecases/get_planet.dart';
 import 'package:star_wars_app/characters/index/domain/usecases/iget_from_local_storage.dart';
+import 'package:star_wars_app/characters/index/domain/usecases/iget_planet.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/characters/index/data/repository/sw_repository.dart';
 import 'package:star_wars_app/characters/index/domain/repository/isw_repository.dart';

@@ -8,8 +8,7 @@ abstract class Character {
       required this.height,
       required this.homeworld,
       required this.mass,
-      required this.name,
-      required this.urlImage});
+      required this.name});
 
   String birthYear;
   String eyeColor;
@@ -20,5 +19,4 @@ abstract class Character {
   String homeworld;
   String mass;
   String name;
-  String urlImage;
 }

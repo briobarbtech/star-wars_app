@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:star_wars_app/characters/index/data/datasource/remote_datasource/iremote_datasource_sw.dart';
 import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart';
 import 'package:star_wars_app/characters/index/data/model/character_model.dart';
+import 'package:star_wars_app/characters/index/data/model/planet_model.dart';
+import 'package:star_wars_app/characters/index/domain/entities/planet.dart';
 
 class RemoteDatasourceSW extends IRemoteDatasourceSW {
   @override
@@ -19,6 +21,17 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
           next: response.data['next'].toString());
       // Devuelvo el objeto anteriormente construido
       return starWarsState;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<Planet> getPlanet(String url) async {
+    try {
+      Response response = await Dio().get(url);
+      Planet result = PlanetModel.fromJson(response.data);
+      return result;
     } catch (e) {
       throw Exception(e);
     }

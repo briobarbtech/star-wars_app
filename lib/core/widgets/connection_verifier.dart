@@ -19,7 +19,7 @@ class ConnectionVerifier extends ConsumerWidget {
                 ? Theme.of(context).colorScheme.tertiary
                 : Theme.of(context).colorScheme.inversePrimary),
         child: state
-            ? const Center(child: Text("Conectado"))
-            : const Center(child: Text("Desconectado")));
+            ? const Center(child: Text("Connected"))
+            : const Center(child: Text("Disconnected")));
   }
 }
