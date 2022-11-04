@@ -9,7 +9,6 @@ Widget bottomNavBar(WidgetRef ref) {
       selectedItemColor: Colors.amber[800],
       onTap: (value) {
         ref.read(navBarIndex.notifier).state = value;
-        print(ref.watch(navBarIndex));
       },
       items: const [
         BottomNavigationBarItem(

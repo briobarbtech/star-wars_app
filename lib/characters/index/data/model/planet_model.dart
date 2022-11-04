@@ -1,6 +1,6 @@
 import 'package:star_wars_app/characters/index/domain/entities/planet.dart';
 
-class PlanetModel extends Planet {
+class PlanetModel implements Planet {
   PlanetModel({
     required this.name,
     required this.rotationPeriod,
@@ -11,25 +11,25 @@ class PlanetModel extends Planet {
     required this.terrain,
     required this.surfaceWater,
     required this.population,
-  }) : super(
-            name: name,
-            rotationPeriod: rotationPeriod,
-            orbitalPeriod: orbitalPeriod,
-            diameter: diameter,
-            climate: climate,
-            gravity: gravity,
-            terrain: terrain,
-            surfaceWater: surfaceWater,
-            population: population);
+  });
 
+  @override
   String name;
+  @override
   String rotationPeriod;
+  @override
   String orbitalPeriod;
+  @override
   String diameter;
+  @override
   String climate;
+  @override
   String gravity;
+  @override
   String terrain;
+  @override
   String surfaceWater;
+  @override
   String population;
 
   factory PlanetModel.fromJson(Map<String, dynamic> json) => PlanetModel(

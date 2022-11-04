@@ -13,7 +13,7 @@ class RemoteDatasourceReports extends IRemoteDatasourceReports {
       final String statusCode = response.statusCode.toString();
       return statusCode;
     } catch (e) {
-      throw Exception((e) => {print(e)});
+      throw Exception(e);
     }
   }
 

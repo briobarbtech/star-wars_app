@@ -19,8 +19,6 @@ class CharacterList extends ConsumerWidget {
     final swCharacterData = ref.watch(characterProvider).characters;
     /* State of petition */
     bool isLoading = ref.watch(characterProvider).isLoading;
-    /* page counter */
-    var pageCounter = ref.watch(pageCounterProvider);
 
     return !isLoading
         ? Container(
@@ -72,7 +70,9 @@ class CharacterList extends ConsumerWidget {
                               0) {
                             final url = ref.watch(characterProvider).previous;
                             ref.read(characterProvider.notifier).loadCharacters(
-                                Endpoints.mongoDBEndpoint + url);
+                                Endpoints.mongoDBEndpoint +
+                                    Endpoints.pageResource +
+                                    url);
                           }
                         },
                         child: Text(
@@ -84,7 +84,9 @@ class CharacterList extends ConsumerWidget {
                             ref.read(pageCounterProvider.notifier).state++;
                             final url = ref.watch(characterProvider).next;
                             ref.read(characterProvider.notifier).loadCharacters(
-                                Endpoints.mongoDBEndpoint + url);
+                                Endpoints.mongoDBEndpoint +
+                                    Endpoints.pageResource +
+                                    url);
                           }
                         },
                         child:

@@ -6,12 +6,9 @@ import 'package:star_wars_app/characters/index/data/datasource/remote_datasource
 import 'package:star_wars_app/characters/index/data/freezed/connection_state.dart';
 import 'package:star_wars_app/characters/index/data/freezed/starwars_state.dart';
 import 'package:star_wars_app/characters/index/data/repository/sw_local_repository.dart';
-import 'package:star_wars_app/characters/index/domain/entities/planet.dart';
 import 'package:star_wars_app/characters/index/domain/repository/isw_repository_local.dart';
 import 'package:star_wars_app/characters/index/domain/usecases/get_from_local_storage.dart';
-import 'package:star_wars_app/characters/index/domain/usecases/get_planet.dart';
 import 'package:star_wars_app/characters/index/domain/usecases/iget_from_local_storage.dart';
-import 'package:star_wars_app/characters/index/domain/usecases/iget_planet.dart';
 import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/characters/index/data/repository/sw_repository.dart';
 import 'package:star_wars_app/characters/index/domain/repository/isw_repository.dart';
@@ -32,7 +29,7 @@ final navBarIndex = StateProvider((ref) => 0);
 class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization
   CharacterNotifier() : super(const StarWarsState()) {
-    loadCharacters("${Endpoints.mongoDBEndpoint}1");
+    loadCharacters("${Endpoints.mongoDBEndpoint}${Endpoints.pageResource}1");
   }
 
   loadCharacters(String url) async {
@@ -50,7 +47,6 @@ class CharacterNotifier extends StateNotifier<StarWarsState> {
 
     if (resultCheck) {
       starWarsState = await localStorage.getFromLocalStorage(url);
-      print("Encontrado en local Storage");
     } else {
       final IRemoteDatasourceSW starWarsStateDatasource = RemoteDatasourceSW();
       final IStarWarsRepository starWarsStateRepository =
@@ -59,7 +55,6 @@ class CharacterNotifier extends StateNotifier<StarWarsState> {
           GetCharacters(starWarsStateRepository);
       starWarsState = await getstarWarsState.getPage(url);
       localStorage.saveIntoLocalStorage(url, starWarsState);
-      print("Pedido a la Api");
     }
     state = starWarsState;
   }

@@ -1,7 +1,7 @@
 import 'package:star_wars_app/characters/index/domain/entities/character.dart';
 
 // Modelo que contiene los métodos de la clase Character que implementa
-class CharacterModel extends Character {
+class CharacterModel implements Character {
   CharacterModel(
       {required this.birthYear,
       required this.eyeColor,
@@ -11,26 +11,25 @@ class CharacterModel extends Character {
       required this.height,
       required this.homeworld,
       required this.mass,
-      required this.name})
-      : super(
-            birthYear: birthYear,
-            eyeColor: eyeColor,
-            gender: gender,
-            hairColor: hairColor,
-            skinColor: skinColor,
-            height: height,
-            homeworld: homeworld,
-            mass: mass,
-            name: name);
+      required this.name});
 
+  @override
   String birthYear;
+  @override
   String eyeColor;
+  @override
   String gender;
+  @override
   String hairColor;
+  @override
   String skinColor;
+  @override
   String height;
+  @override
   String homeworld;
+  @override
   String mass;
+  @override
   String name;
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) => CharacterModel(

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:star_wars_app/core/assets/utils/images_source.dart';
 import 'package:star_wars_app/core/widgets/icon_info.dart';
 import 'package:star_wars_app/characters/index/domain/entities/character.dart';
-import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 
 Widget profile(context, Character character) {
   return Container(

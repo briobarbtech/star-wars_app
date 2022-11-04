@@ -12,7 +12,6 @@ class LocalStorageDatasourceSW extends ILocalStorageDatasourceSW {
     final Box boxStarWars = await Hive.openBox('starwars');
     // Agrego el objeto obtenido a la db de hive
     boxStarWars.put(key, StarWarsStateHive.fromMovieEntity(starWarsState));
-    print("Guardado en local Storage");
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/core/widgets/info_character.dart';
 import 'package:star_wars_app/core/widgets/profile.dart';
 import 'package:star_wars_app/core/widgets/report_button.dart';
@@ -20,17 +19,13 @@ class CharacterDetails extends ConsumerWidget {
           centerTitle: true,
         ),
         body: SafeArea(
-            child: Center(
-          child: Column(
-            children: [
-              profile(context, character),
-              infoCharacter(character, context),
-              const SizedBox(
-                height: 45,
-              ),
-              reportButton(ref, context, character)
-            ],
-          ),
+            child: Wrap(
+          alignment: WrapAlignment.spaceAround,
+          children: [
+            profile(context, character),
+            infoCharacter(character, context),
+            reportButton(ref, context, character)
+          ],
         )));
   }
 }

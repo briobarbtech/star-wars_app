@@ -14,6 +14,7 @@ class ConnectionVerifier extends ConsumerWidget {
     final state = ref.watch(swichtState).switchState;
     return Container(
         height: 60,
+        constraints: const BoxConstraints(maxHeight: 60),
         decoration: BoxDecoration(
             color: state
                 ? Theme.of(context).colorScheme.tertiary
