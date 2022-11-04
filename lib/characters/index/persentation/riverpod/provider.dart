@@ -32,7 +32,7 @@ final navBarIndex = StateProvider((ref) => 0);
 class CharacterNotifier extends StateNotifier<StarWarsState> {
   // Notifier constructor - call functions on provider initialization
   CharacterNotifier() : super(const StarWarsState()) {
-    loadCharacters(Endpoints.mongoDBEndpoint);
+    loadCharacters("${Endpoints.mongoDBEndpoint}1");
   }
 
   loadCharacters(String url) async {

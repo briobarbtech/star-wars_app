@@ -17,8 +17,8 @@ class RemoteDatasourceSW extends IRemoteDatasourceSW {
       StarWarsState starWarsState = StarWarsState(
           characters: result.map((e) => CharacterModel.fromJson(e)).toList(),
           isLoading: false,
-          previous: response.data['previous'].toString(),
-          next: response.data['next'].toString());
+          previous: response.data['previous'],
+          next: response.data['next']);
       // Devuelvo el objeto anteriormente construido
       return starWarsState;
     } catch (e) {

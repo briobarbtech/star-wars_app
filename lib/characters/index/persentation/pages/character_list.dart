@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:star_wars_app/characters/index/persentation/pages/character_detail.dart';
 import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
+import 'package:star_wars_app/core/endpoints/endpoints.dart';
 import 'package:star_wars_app/core/widgets/connection_verifier.dart';
 
 /* STATES PROVIDERS */
@@ -29,61 +30,65 @@ class CharacterList extends ConsumerWidget {
             child: Column(
               children: [
                 ConnectionVerifier(swichtState: swithCurrentValue),
-                ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: swCharacterData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return SingleChildScrollView(
-                        child: ListTile(
-                            onTap: () {
-                              context.go('/${CharacterDetails.routeLocation}',
-                                  extra: swCharacterData[index]);
-                            },
-                            leading: swCharacterData[index].gender == "male"
-                                ? const Icon(Icons.female_sharp)
-                                : const Icon(Icons.male_sharp),
-                            trailing: TextButton(
-                                onPressed: () {
-                                  context.go(
-                                      '/${CharacterDetails.routeLocation}',
-                                      extra: swCharacterData[index]);
-                                },
-                                child: const Text(
-                                  "See more",
-                                )),
-                            title: Text(
-                              swCharacterData[index].name,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            )),
-                      );
-                    }),
+                Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: swCharacterData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return SingleChildScrollView(
+                          child: ListTile(
+                              onTap: () {
+                                context.go('/${CharacterDetails.routeLocation}',
+                                    extra: swCharacterData[index]);
+                              },
+                              leading: swCharacterData[index].gender == "male"
+                                  ? const Icon(Icons.female_sharp)
+                                  : const Icon(Icons.male_sharp),
+                              trailing: TextButton(
+                                  onPressed: () {
+                                    context.go(
+                                        '/${CharacterDetails.routeLocation}',
+                                        extra: swCharacterData[index]);
+                                  },
+                                  child: const Text(
+                                    "See more",
+                                  )),
+                              title: Text(
+                                swCharacterData[index].name,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )),
+                        );
+                      }),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(width: 20.0),
                     ElevatedButton(
                         onPressed: () async {
-                          if (ref.watch(characterProvider).previous != 'null') {
-                            ref.read(pageCounterProvider.notifier).state--;
+                          if (int.parse(
+                                  ref.watch(characterProvider).previous) !=
+                              0) {
                             final url = ref.watch(characterProvider).previous;
-                            ref
-                                .read(characterProvider.notifier)
-                                .loadCharacters(url);
+                            ref.read(characterProvider.notifier).loadCharacters(
+                                Endpoints.mongoDBEndpoint + url);
                           }
                         },
-                        child: Text("Previous ${pageCounter - 1}")),
+                        child: Text(
+                            "Previous ${ref.watch(characterProvider).previous}")),
                     ElevatedButton(
                         onPressed: () async {
-                          if (ref.watch(characterProvider).next != 'null') {
+                          if (int.parse(ref.watch(characterProvider).next) <
+                              10) {
                             ref.read(pageCounterProvider.notifier).state++;
                             final url = ref.watch(characterProvider).next;
-                            ref
-                                .read(characterProvider.notifier)
-                                .loadCharacters(url);
+                            ref.read(characterProvider.notifier).loadCharacters(
+                                Endpoints.mongoDBEndpoint + url);
                           }
                         },
-                        child: Text("Next ${pageCounter + 1}")),
+                        child:
+                            Text("Next ${ref.watch(characterProvider).next}")),
                     const SizedBox(width: 20.0)
                   ],
                 )
