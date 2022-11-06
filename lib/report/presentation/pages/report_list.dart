@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:star_wars_app/characters/index/data/freezed/report_state.dart';
 import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/core/widgets/connection_verifier.dart';
 import 'package:star_wars_app/report/data/model/report_model.dart';
+import 'package:star_wars_app/report/domain/entities/report.dart';
 import 'package:star_wars_app/report/presentation/riverpod/provider.dart';
 
 /* STATES PROVIDERS */
@@ -16,11 +18,11 @@ class ReportList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* Characters */
-    final reportsData = ref.watch(reportProvider).reports;
+    final reports = ref.watch(reportProvider).reports;
     /* State of petition */
     bool isLoading = ref.watch(reportProvider).isLoading;
     return !isLoading
-        ? StarWarsReportPage(reportsData: reportsData)
+        ? StarWarsReportPage(reportsData: reports)
         : Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
@@ -49,25 +51,29 @@ class StarWarsReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        constraints: BoxConstraints(
+            maxHeight: 2 * (MediaQuery.of(context).size.height / 3)),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
         ),
         child: Column(
           children: [
             ConnectionVerifier(swichtState: swithCurrentValue),
-            ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: reportsData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SingleChildScrollView(
-                      child: ListTile(
-                    title: Text(reportsData[index].title),
-                    subtitle: Text(reportsData[index].body),
-                    trailing: Text(DateFormat("yyyy-MM-dd HH:mm")
-                        .format(reportsData[index].date)),
-                  ));
-                }),
+            Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: reportsData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SingleChildScrollView(
+                        child: ListTile(
+                      title: Text(reportsData[index].title),
+                      subtitle: Text(reportsData[index].body),
+                      trailing: Text(DateFormat("yyyy-MM-dd HH:mm")
+                          .format(reportsData[index].date)),
+                    ));
+                  }),
+            ),
           ],
         ));
   }
