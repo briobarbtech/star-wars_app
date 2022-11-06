@@ -4,7 +4,9 @@ import 'package:star_wars_app/report/data/datasource/remote_datasource/remote_da
 import 'package:star_wars_app/report/data/hive_model/report_state.dart';
 import 'package:star_wars_app/report/data/repository/reports_repository.dart';
 import 'package:star_wars_app/report/domain/repository/ireports_repository.dart';
+import 'package:star_wars_app/report/domain/usecases/delete_report.dart';
 import 'package:star_wars_app/report/domain/usecases/get_reports.dart';
+import 'package:star_wars_app/report/domain/usecases/idelete_report.dart';
 import 'package:star_wars_app/report/domain/usecases/iget_reports.dart';
 import 'package:star_wars_app/report/domain/usecases/ireport_sighting.dart';
 import 'package:star_wars_app/report/domain/usecases/report_sighting.dart';
@@ -36,5 +38,18 @@ class ReportStateNotifier extends StateNotifier<ReportState> {
     final IGetReports getReports = GetReports(reportsRepository);
     final ReportState reports = await getReports.getReports();
     state = reports;
+  }
+
+  deleteReport(item) async {
+    state = state.copyWith(isLoading: true);
+    final IRemoteDatasourceReports remoteDatasourceReports =
+        RemoteDatasourceReports();
+    final IReportsRepository reportsRepository =
+        ReportsRepository(remoteDatasourceReports);
+    final IDeleteReport deleteReport = DeleteReport(reportsRepository);
+    final reportDelete = await deleteReport.deleteReports(item);
+    state = state.copyWith(statusCode: reportDelete);
+    getReports();
+    state = state.copyWith(isLoading: false);
   }
 }

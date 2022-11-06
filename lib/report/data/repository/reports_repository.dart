@@ -14,4 +14,9 @@ class ReportsRepository extends IReportsRepository {
   Future<ReportState> getReports() {
     return remoteDatasourceReports.getReports();
   }
+
+  @override
+  Future<String> deleteReports(item) {
+    return remoteDatasourceReports.deleteReports(item);
+  }
 }

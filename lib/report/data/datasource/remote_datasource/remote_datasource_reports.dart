@@ -20,12 +20,25 @@ class RemoteDatasourceReports extends IRemoteDatasourceReports {
   @override
   Future<ReportState> getReports() async {
     try {
-      Response response = await Dio().get(Endpoints.reportEndpoint);
+      Response response = await Dio()
+          .get('${Endpoints.reportEndpoint}${Endpoints.pageResource}1');
       List reports = response.data;
       return ReportState(
           isLoading: false,
           statusCode: response.statusCode,
           reports: reports.map((e) => ReportModel.fromJson(e)).toList());
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<String> deleteReports(item) async {
+    try {
+      Response response = await Dio()
+          .put('${Endpoints.reportEndpoint}${Endpoints.reportDelete}$item');
+
+      return response.statusCode.toString();
     } catch (e) {
       throw Exception(e);
     }

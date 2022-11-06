@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:star_wars_app/characters/index/data/freezed/report_state.dart';
 import 'package:star_wars_app/characters/index/persentation/riverpod/provider.dart';
 import 'package:star_wars_app/core/widgets/connection_verifier.dart';
 import 'package:star_wars_app/report/data/model/report_model.dart';
-import 'package:star_wars_app/report/domain/entities/report.dart';
 import 'package:star_wars_app/report/presentation/riverpod/provider.dart';
+import 'package:star_wars_app/report/presentation/widgets/show_report_item_modal.dart';
 
 /* STATES PROVIDERS */
 final pageCounterProvider = StateProvider((ref) => 1);
@@ -40,7 +39,7 @@ class ReportList extends ConsumerWidget {
   }
 }
 
-class StarWarsReportPage extends StatelessWidget {
+class StarWarsReportPage extends ConsumerWidget {
   const StarWarsReportPage({
     Key? key,
     required this.reportsData,
@@ -49,7 +48,7 @@ class StarWarsReportPage extends StatelessWidget {
   final List<ReportModel> reportsData;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
         constraints: BoxConstraints(
             maxHeight: 2 * (MediaQuery.of(context).size.height / 3)),
@@ -71,6 +70,9 @@ class StarWarsReportPage extends StatelessWidget {
                       subtitle: Text(reportsData[index].body),
                       trailing: Text(DateFormat("yyyy-MM-dd HH:mm")
                           .format(reportsData[index].date)),
+                      onTap: () {
+                        showReportItemModal(ref, context, index);
+                      },
                     ));
                   }),
             ),
