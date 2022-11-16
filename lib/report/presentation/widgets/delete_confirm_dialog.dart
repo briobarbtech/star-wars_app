@@ -16,7 +16,7 @@ deleteConfirmDialog(WidgetRef ref, BuildContext dialogContext, item) {
             child: const Text('Confirm'),
             onPressed: () async {
               await ref.read(reportProvider.notifier).deleteReport(item);
-              if (await ref.watch(reportProvider).statusCode == "200") {
+              if (ref.watch(reportProvider).statusCode == "200") {
                 ScaffoldMessenger.of(dialogContext).showSnackBar(
                     const SnackBar(content: Text("Se ha eliminado con éxito")));
               } else {
