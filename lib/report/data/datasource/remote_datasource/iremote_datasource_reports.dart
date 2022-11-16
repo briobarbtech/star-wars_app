@@ -4,4 +4,5 @@ import 'package:star_wars_app/report/data/model/report_model.dart';
 abstract class IRemoteDatasourceReports {
   Future<String> reportSighting(ReportModel report);
   Future<ReportState> getReports();
+  Future<String> deleteReports(item);
 }

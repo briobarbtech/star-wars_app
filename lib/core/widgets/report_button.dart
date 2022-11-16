@@ -11,11 +11,19 @@ Column reportButton(WidgetRef ref, BuildContext context, character) {
         height: 45,
       ),
       ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            var statuscode = ref.watch(reportProvider).statusCode;
             if (ref.watch(swithCurrentValue).switchState) {
-              ref
+              await ref
                   .read(reportProvider.notifier)
                   .reportSighting(ReportModel.fromCharacterObject(character));
+              if (ref.watch(reportProvider).statusCode != "0") {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('El reporte se hizo con éxito')));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Ha ocurrido un error! Code: $statuscode')));
+              }
             } else {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Por favor activa la conexión primero")));

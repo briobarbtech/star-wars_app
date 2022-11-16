@@ -34,12 +34,9 @@ class MyApp extends ConsumerWidget {
 }
 
 
-// Solucionar que los widgets se salen del espacio
-// Mostrar Snackbar cuando se ha reportado el avistamiento
-// Que la pantall de reportes actualice cada vez que entres
+
 // Estilizar el Widget de ConnectionVerifier
 // Traer el planeta
-// Solucionar el porque la primera vez que reporta da un error
 
 
 
