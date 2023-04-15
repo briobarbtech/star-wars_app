@@ -1,16 +1,6 @@
 # star_wars_app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Esta es una aplicación desarrollada en flutter, que trabaja con una API hecha en Python + Flask + MongoDB https://github.com/briobarbtech/star-wars_api_mongodb. 
+Consiste en un cliente que trae desde una base de datos, una lista de personajes de la serie star wars. Personajes los cuales podemos alertar su avistamiento, pero, ojo! Que solo podremos hacerlo si la conexión está conectada.
+Este fue un lindo desafío ya que combina gran parte de los conocimientos adquiridos durante la Tecnicatura superior en desarrollo de software. 
+Incluye conceptos tales como generadores de código (freezed), gestores de estado (riverpod), base de datos locales (hive), enrutadores (go router), clean architecture, y otras cosas más.
